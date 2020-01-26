@@ -8,6 +8,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 1. Use your terminal (Bash, CMD) to navigate to your projects directory and clone the project with the command `git clone https://github.com/jacildo/bystro.git`
 1. Run the following commands sequentially to launch the site
     ```
+    $ npm install -g @angular/cli
     $ npm install
     $ ng build
     $ npm start
