@@ -6,7 +6,8 @@ const names = [
   { id: 2, name: "Oguzhan" },
   { id: 3, name: "Feras" },
   { id: 4, name: "Brian" },
-  { id: 5, name: "Giovanni" }
+  { id: 5, name: "Giovanni" },
+  { id: 6, name: "TestingGit" }
 ]
 
 /* GET users listing. */
