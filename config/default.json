@@ -1,5 +1,9 @@
 {
     "database": {
-        "connection": "mongodb://localhost:27017/bystrodb"
+        "connection": "mongodb://localhost:27017/bystrodb",
+        "configuration": {
+            "useUnifiedTopology": true,
+            "useNewUrlParser": true
+        }
     }
 }

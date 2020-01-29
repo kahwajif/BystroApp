@@ -1,23 +1,42 @@
-require('dotenv').config();
-
-const config = require('config');
-const express = require ('express');
-const app = express ();
 const mongoose = require('mongoose');
+const express = require('express');
+const config = require('config');
 
+const app = express();
+
+// configure database
 const databaseConnection = config.get('database.connection');
-mongoose.connect(databaseConnection, {useNewUrlParser: true });
+const databaseConfiguration = config.get('database.configuration');
+mongoose.connect(databaseConnection, databaseConfiguration);
 
 const db = mongoose.connection;
 db.on('error', (error) => console.error(error));
 db.once('open', () => console.log('Connected to database...'));
 
+// configure server settings
 app.use(express.json());
 
-const foodsRouter = require('./routes/foods');
+// configure routes
+const router = require('./routes');
+app.use('/', router);
 
-app.use('/bystroApp', foodsRouter); //URL
-
-//use port if its already set, otherwise use 3000
+// start application
 const port = process.env.PORT || 3000;
-app.listen(port, () => console.log(`listening on port ${port}...`));
+const server = app.listen(port, () => {
+    console.log(`listening on port ${port}...`)
+});
+
+
+// graceful shutdown
+const gracefulShutdown = () => {
+    console.log('Stopping database connection and application...');
+    db.close(() => {
+        console.log('Database connection stopped...');
+    });
+    server.close(() => {
+        console.log('Application stopped...');
+    });
+}
+
+process.on('SIGTERM', gracefulShutdown);
+process.on('SIGINT', gracefulShutdown);
