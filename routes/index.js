@@ -1,7 +1,7 @@
-var router = require('express').Router();	
+const router = require('express').Router();	
 
-var foodRoutes = require('./food');
-var ingredientRoutes = require('./ingredient');
+const foodRoutes = require('./food');
+const ingredientRoutes = require('./ingredient');
 
 router.use('/api/food', foodRoutes);	
 router.use('/api/ingredient', ingredientRoutes);	

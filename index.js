@@ -3,6 +3,8 @@ const express = require('express');
 const config = require('config');
 
 const app = express();
+const router = require('./routes');
+const seeder = require('./data/seed');
 
 // configure database
 const databaseConnection = config.get('database.connection');
@@ -13,12 +15,12 @@ const db = mongoose.connection;
 db.on('error', (error) => console.error(error));
 db.once('open', () => console.log('Connected to database...'));
 
-// configure server settings
+// configure server settings and routes
 app.use(express.json());
-
-// configure routes
-const router = require('./routes');
 app.use('/', router);
+
+// check if database seeding is needed
+seeder.run();
 
 // start application
 const port = process.env.PORT || 3000;
