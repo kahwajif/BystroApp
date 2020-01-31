@@ -8,6 +8,8 @@ const Ingredient = require('../models/ingredient');
 const Recipe = require('../models/recipe');
 const Food = require('../models/food');
 
+const FILE_LIMIT = 10;
+
 let ingredientCache = [];
 let recipeCache = [];
 let foodCache = [];
@@ -25,7 +27,10 @@ module.exports = {
             return;
         }
 
-        await seedFile(path.resolve('data/raw/spoonacular001.json'));
+        for(let i = 1; i <= FILE_LIMIT; i++){
+            let fileNumber = String(i).padStart(3, '0');
+            await seedFile(path.resolve(`data/raw/spoonacular${fileNumber}.json`));
+        }
 
     }
 }
@@ -35,14 +40,15 @@ const seedFile = async (fileName) => {
     const data = fileContentsToJson(fileName);
     
     for(let i = 0; i < data.recipes.length; i++) {
-        const recipe = data.recipes[i];
-        getOrSeedRecipe(recipe);
+        const sourceRecipe = data.recipes[i];
+        await getOrSeedRecipe(sourceRecipe);
     }
 
     // show all inserted records
-    Recipe.count({}, (count) => console.log( `Successfully seeded ${count} recipes...`));
-    Ingredient.count({}, (count) => console.log( `Successfully seeded ${count} ingredients...`));
-    Food.count({}, (count) => console.log( `Successfully seeded ${count} foods...`));
+    Recipe.countDocuments({}, (err, count) => console.log( `Successfully seeded ${count} recipes...`));
+    Ingredient.countDocuments({}, (err, count) => console.log( `Successfully seeded ${count} ingredients...`));
+    Food.countDocuments({}, (err, count) => console.log( `Successfully seeded ${count} foods...`));
+    return;
 }
 
 const fileContentsToJson = (fileName) => {
@@ -52,45 +58,45 @@ const fileContentsToJson = (fileName) => {
 }
 
 const getOrSeedIngredient = (sourceIngredient) => {
-    return new Promise((resolve, reject) => {
-        const cachedIngredient = _.find(ingredientCache, { sourceId: sourceIngredient.id });
-        if(cachedIngredient){
-            console.warn(`skipping ${sourceIngredient.name}, already in ingredients database`)
-            return cachedRecipe;
-        }
+    return new Promise(async (resolve, reject) => {
+        // const ingredient = await Ingredient.findOne({ sourceId: sourceIngredient.id });
+        // if(ingredient){
+        //     console.warn(`skipping ${sourceIngredient.original}, already in ingredients database`)
+        //     return resolve(ingredient);
+        // }
     
-        const ingredient = new Ingredient({
-            _id: new mongoose.Types.ObjectId(),
-            sourceId: sourceIngredient.id,
-            name: sourceIngredient.original,
-            unit: sourceIngredient.unit,
-            quantity: sourceIngredient.amount,
-        });
-    
-        getOrSeedFood(sourceIngredient.name)
-            .then(food => {
-                ingredient.food = food;
-                console.log(`adding ${ingredient.name} to ingredients`);
-                ingredient.save()
-                    .then((i) => {
-                        Ingredient.findOne(i._id, (err, data) => {
-                            resolve(data);
-                        })
-                    });
+        try {
+            const newIngredient = new Ingredient({
+                _id: new mongoose.Types.ObjectId(),
+                sourceId: sourceIngredient.id ? sourceIngredient.id : 0,
+                name: sourceIngredient.original,
+                unit: sourceIngredient.unit,
+                quantity: sourceIngredient.amount,
             });
+        
+            var food = await getOrSeedFood(sourceIngredient.name);
+            newIngredient.food = food;
+            
+            var createdIngredient = await newIngredient.save();
+            console.log(`added ${createdIngredient.name} to ingredients`);
+            return resolve(createdIngredient);
+        } catch {
+            console.error('could not save new ingredient', sourceIngredient)
+            resolve(null);
+        }
     });
 
 }
 
 const getOrSeedRecipe = (sourceRecipe) => {
-    return new Promise((resolve, reject) => {
-        const cachedRecipe = _.find(recipeCache, { sourceId: sourceRecipe.id });
-        if(cachedRecipe){
+    return new Promise(async (resolve, reject) => {
+        const recipe = await Recipe.findOne({ sourceId: sourceRecipe.id });
+        if(recipe){
             console.warn(`skipping ${sourceRecipe.name}, already in recipes database`)
-            return cachedRecipe;
+            return resolve(recipe);
         }
     
-        const recipe = new Recipe({
+        const newRecipe = new Recipe({
             _id: new mongoose.Types.ObjectId(),
             sourceId: sourceRecipe.id,
             name: sourceRecipe.title,
@@ -102,42 +108,36 @@ const getOrSeedRecipe = (sourceRecipe) => {
             servings: sourceRecipe.servings
         });
 
-        let promises = sourceRecipe.extendedIngredients.map(r => getOrSeedIngredient(r));
-        Promise
-            .all(promises)
-            .then((ingredients) => {
-                recipe.ingredients.push(...ingredients);
-                console.log(`adding ${recipe.name} to recipes`);
-                recipe.save()
-                    .then((r) => {
-                        Recipe.findOne(r._id, (err, data) => {
-                            resolve(data);
-                        })
-                    })
-            });
+        for(let i = 0; i < sourceRecipe.extendedIngredients.length; i++) {
+            var sourceIngredient = sourceRecipe.extendedIngredients[i];
+            var ingredient = await getOrSeedIngredient(sourceIngredient);
+            if(ingredient) {
+                newRecipe.ingredients.push(ingredient);
+            }
+        }
+
+        var createdRecipe = await newRecipe.save();
+        console.log(`added ${createdRecipe.name} to recipes`);
+        return resolve(createdRecipe);
     })
 }
 
 const getOrSeedFood = (name) => {
-    return new Promise((resolve, reject) => {
-        const cachedFood = _.find(foodCache, { name: name });
-        if(cachedFood){
+    return new Promise(async (resolve, reject) => {
+        const food = await Food.findOne({ name: name });
+        if(food){
             console.warn(`skipping ${name}, already in food database`)
-            return cachedFood;
+            return resolve(food);
         }
     
-        const food = new Food({
+        const newFood = new Food({
             _id: new mongoose.Types.ObjectId(),
             name: name
         });
     
         console.log(`adding ${name} to foods`);
-        food.save()
-            .then((f) => {
-                Food.findOne(f._id, (err, data) => {
-                    resolve(data);
-                })
-            });
+        var createdFood = await newFood.save();
+        return resolve(createdFood);
     });
 }
 
