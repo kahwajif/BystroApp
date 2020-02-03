@@ -1,12 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const Food = require('../models/food');
+const FoodDto = require('../models/dto/foodDto')
 
 // GET: /api/food?query=:query
 router.get('/', paginate(Food), async (req, res) => {
     try {
         //const foods = await Food.find();
-        res.json(res.paginate);
+
+        res.json(res.results);
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
@@ -48,8 +50,14 @@ function paginate(model){
             };
         };
         try{
-            results.results = await model.find().limit(limit).skip(startIndex).exec();
-            res.paginate = results;
+            const food = await model
+                .find(req.params.name) //{ name: req.params.name} use postman to test
+                .limit(limit)
+                .skip(startIndex)
+                .exec();//domain
+            const foodDto = new FoodDto(food.id,food.name);
+            results.results = foodDto;
+            res.results = results;
             next();
         } catch (e) {
             res.status(500).join({message: e.message});
