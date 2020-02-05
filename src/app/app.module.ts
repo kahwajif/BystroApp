@@ -10,6 +10,7 @@ import { TopNavComponent } from './shared/nav/top-nav.component';
 
 // pages
 import { DefaultHomeComponent } from './default/home.component';
+import { RecipeModule } from './recipe/recipe.module';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { DefaultHomeComponent } from './default/home.component';
   ],
   imports: [
     AppRoutingModule,
+    RecipeModule,
     BrowserModule
   ],
   providers: [],
