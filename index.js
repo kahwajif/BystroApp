@@ -17,6 +17,7 @@ db.once('open', () => console.log('Connected to database...'));
 
 // configure server settings and routes
 app.use(express.json());
+app.use(express.static('dist'));
 app.use('/', router);
 
 // check if database seeding is needed

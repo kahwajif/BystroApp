@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Ingredient = require('../models/ingredient');
+const IngredientDto = require('../models/dto/ingredientDto')
 
 // POST: /api/ingredient/filter
 router.post('/filter', async (req, res) => {
