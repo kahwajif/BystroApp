@@ -7,3 +7,5 @@
       this.quantity = quantity;
     }
 }
+
+module.exports = IngredientDto;

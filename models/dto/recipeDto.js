@@ -12,3 +12,5 @@
       this.ingredients = ingredients;
     }
 }
+
+module.exports = RecipeDto;
