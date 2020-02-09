@@ -1,14 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const Food = require('../models/food');
-const FoodDto = require('../models/dto/foodDto')
+const FoodDto = require('../models/dto/foodDto');
 
 // GET: /api/food?query=:query
 router.get('/', paginate(Food), async (req, res) => {
     try {
-        //const foods = await Food.find();
-
-        res.json(res.results);
+        
+        
+        res.json(res.paginate);
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
@@ -19,6 +19,7 @@ router.post('/', async (req, res) => {
         name: req.body.name
     });
     try {
+        
         const newFood = await food.save();
         res.status(201).json(newFood);
     } catch (err) {
@@ -42,7 +43,7 @@ function paginate(model){
                 limit: limit              
             };
         };
-
+        
         if (startIndex > 0){
             results.previous = {
                 page: page - 1,
@@ -50,17 +51,28 @@ function paginate(model){
             };
         };
         try{
-            const food = await model
-                .find(req.params.name) //{ name: req.params.name} use postman to test
+            
+            results.results = await model
+                .find({$text: {$search: req.query.name}})
                 .limit(limit)
                 .skip(startIndex)
                 .exec();//domain
+           
+            res.paginate = results;
+
+           /*  const food = await model
+                .find() //{ name: req.params.name} use postman to test
+                .limit(limit)
+                .skip(startIndex)
+                .exec();//domain
+           
             const foodDto = new FoodDto(food.id,food.name);
             results.results = foodDto;
-            res.results = results;
+            res.results = results; */
+
             next();
         } catch (e) {
-            res.status(500).join({message: e.message});
+            res.status(500).json({message: e.message});
         };
     };
 
