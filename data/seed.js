@@ -113,6 +113,10 @@ const getOrSeedRecipe = (sourceRecipe) => {
             var ingredient = await getOrSeedIngredient(sourceIngredient);
             if(ingredient) {
                 newRecipe.ingredients.push(ingredient);
+
+                if(!_.find(newRecipe.foods, { _id: ingredient.food._id })){
+                    newRecipe.foods.push(ingredient.food);
+                }
             }
         }
 

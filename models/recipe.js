@@ -43,6 +43,12 @@ const recipeSchema = new Schema({
             type: Schema.Types.ObjectId,
             ref: 'Ingredient'
         }
+    ],
+    foods: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Food'
+        }
     ]
 });
 
