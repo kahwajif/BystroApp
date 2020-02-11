@@ -10,6 +10,4 @@ const foodSchema = new Schema({
     }
 });
 
-foodSchema.index({name: 'text'}) //ignore depreciation warning
-
 module.exports = mongoose.model('Food', foodSchema);

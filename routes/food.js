@@ -51,24 +51,16 @@ function paginate(model){
             };
         };
         try{
-            
-            results.results = await model
-                .find({$text: {$search: req.query.name}})
+            const foods = await model
+                .find({$text: {$search: req.query.name}}) //{ name: { $regex: `.*${req.query.name}.*`}}
                 .limit(limit)
                 .skip(startIndex)
                 .exec();//domain
-           
-            res.paginate = results;
-
-           /*  const food = await model
-                .find() //{ name: req.params.name} use postman to test
-                .limit(limit)
-                .skip(startIndex)
-                .exec();//domain
-           
-            const foodDto = new FoodDto(food.id,food.name);
+            console.log(req.query)
+            const foodDto = foods.map(f => new FoodDto(f.id,f.name));
+            console.log(foodDto);
             results.results = foodDto;
-            res.results = results; */
+            res.paginate = results;
 
             next();
         } catch (e) {
