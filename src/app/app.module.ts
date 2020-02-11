@@ -1,6 +1,8 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -12,6 +14,7 @@ import { TopNavComponent } from './shared/nav/top-nav.component';
 // pages
 import { DefaultHomeComponent } from './default/home.component';
 import { RecipeModule } from './recipe/recipe.module';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -20,10 +23,12 @@ import { RecipeModule } from './recipe/recipe.module';
     DefaultHomeComponent
   ],
   imports: [
+    BrowserModule,
+    HttpClientModule,
+    FormsModule,
+    CommonModule,
     AppRoutingModule,
     RecipeModule,
-    BrowserModule,
-    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
