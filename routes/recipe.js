@@ -5,13 +5,14 @@ const Recipe = require('../models/recipe');
 // POST: /api/recipe
 router.post('/getbyfoodids', async (req, res) => {
     try { //do logic here...
-        const foodIds = req.body.foodIds; //getting food ids from req
+        const foodIds = req.query.foodIds; //getting food ids from req
         const recipes = await Recipe
-            .find({
-                ingredients: foodIds
+            .find({ 
+                foods:{$in: [foodIds]}
             })
-            .limit(10)
+            .limit(2)
             .exec()
+        
         res.json(recipes)
     } catch (err) {
         res.status(400).json({ message: err.message });

@@ -51,5 +51,7 @@ const recipeSchema = new Schema({
         }
     ]
 });
-
+//recipeSchema.query.ObjectId = function(foods){
+  //  return this.where({foods: new RegExp(foods, "i")});
+//}
 module.exports = mongoose.model('Recipe', recipeSchema);
