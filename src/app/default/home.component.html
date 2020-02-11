@@ -1,1 +1,11 @@
-<input class="form-control" [ngModel]="query" >
+<div class="py-3">
+    
+    <input class="form-control" [(ngModel)]="query" (ngModelChange)="searchFood()" >
+
+    <div *ngIf="foods">
+        <p *ngFor="let food of foods">
+            {{food._id}}: {{food.name}}
+        </p>
+    </div>
+
+</div>
