@@ -1,18 +1,22 @@
 const express = require('express');
 const router = express.Router();
 const Recipe = require('../models/recipe');
+const ObjectId = require('mongoose').Types.ObjectId
 
 // POST: /api/recipe
 router.post('/getbyfoodids', async (req, res) => {
     try { //do logic here...
-        const foodIds = req.query.foodIds; //getting food ids from req
+        const foodIds = req.body.foodIds
+        const foodObjectIds = foodIds.map(id => ObjectId(id))
+
+        //const foodIdss = req.query.foodIds;
         const recipes = await Recipe
             .find({ 
-                foods:{$in: [foodIds]}
+                foods:{$in: foodObjectIds}
             })
-            .limit(2)
+            .limit(10)
             .exec()
-        
+
         res.json(recipes)
     } catch (err) {
         res.status(400).json({ message: err.message });
