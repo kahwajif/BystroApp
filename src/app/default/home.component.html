@@ -2,10 +2,21 @@
     
     <input class="form-control" [(ngModel)]="query" (ngModelChange)="searchFood()" >
 
-    <div *ngIf="foods">
-        <p *ngFor="let food of foods">
-            {{food._id}}: {{food.name}}
+    <div *ngIf="searchResults" class="mb-3">
+        <p *ngFor="let food of searchResults" (click)="saveFood(food)">
+            {{food.id}}: {{food.name}}
         </p>
     </div>
 
+    <div *ngIf="savedFoods.length">
+        <p class="mb-2">Saved Ingredients:</p>
+        <div class="d-flex justify-content-between border p-2 rounded mb-2" *ngFor="let food of savedFoods">
+            <span class="align-middle justify-content-center">
+                {{food.name}}
+            </span>
+            <span class="align-middle text-danger" (click)="removeFood(food)">
+                <i class="fal fa-times"></i>
+            </span>
+        </div>
+    </div>
 </div>

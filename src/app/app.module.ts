@@ -10,6 +10,7 @@ import { from } from 'rxjs';
 
 // shared components
 import { TopNavComponent } from './shared/nav/top-nav.component';
+import { AppSettingsService } from './shared/services/appsettings.service'
 
 // pages
 import { DefaultHomeComponent } from './default/home.component';
@@ -30,7 +31,7 @@ import { CommonModule } from '@angular/common';
     AppRoutingModule,
     RecipeModule,
   ],
-  providers: [],
+  providers: [AppSettingsService],
   bootstrap: [AppComponent]
 })
 
