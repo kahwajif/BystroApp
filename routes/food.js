@@ -55,10 +55,10 @@ function paginate(model){
                 .find({$text: {$search: req.query.name}}) //{ name: { $regex: `.*${req.query.name}.*`}}
                 .limit(limit)
                 .skip(startIndex)
-                .exec();//domain
-            console.log(req.query)
+                .exec();
+            
             const foodDto = foods.map(f => new FoodDto(f.id,f.name));
-            console.log(foodDto);
+            
             results.results = foodDto;
             res.paginate = results;
 

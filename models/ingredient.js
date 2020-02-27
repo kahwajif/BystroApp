@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const ingredientSchema = new Schema({
+    _id: Schema.Types.ObjectId,
     sourceId: {
         type: Number,
         required: true
