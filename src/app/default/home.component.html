@@ -19,4 +19,8 @@
             </span>
         </div>
     </div>
+
+    <div *ngIf="savedFoods.length">
+        <a class="btn btn-primary d-block" routerLink="/recipe/find-recipe">Find Recipes</a>
+    </div>
 </div>

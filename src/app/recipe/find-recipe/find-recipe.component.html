@@ -1,0 +1,8 @@
+<h1>Recipes</h1>
+
+<p class="border text-sm p-2" *ngFor="let recipe of recipes">
+    <strong>{{recipe.name}}</strong><br />
+    <span>{{recipe._id}}</span>
+</p>
+
+<a class="btn btn-primary d-block mb-5" routerLink="/">Back to Ingredients</a>

@@ -33,6 +33,7 @@ router.get('/:id', async (req, res) => {
 
 function paginate(model){
     return async (req,res,next) => {
+
         const page = parseInt(req.body.page);
         const limit = parseInt(req.body.limit);
 
@@ -57,14 +58,14 @@ function paginate(model){
         try{
             const foodIds = req.body.foodIds
             const foodObjectIds = foodIds.map(id => ObjectId(id))
-            console.log(limit)
+
             //DTO not need as the information returned is already specifically selected in $group
             const recipes = await Recipe.aggregate([
-            {$match:{"foods":{$in:foodObjectIds}}}, 
-            {$unwind:"$foods"},
-            {$match:{foods:{$in:foodObjectIds}}},
-            {$group:{"_id":"$_id","noOfMatches":{$sum:1},"name":{$first:"$name"},"author":{$first:"$author"} }},
-            {$sort:{noOfMatches:-1}},
+                {$match:{"foods":{$in:foodObjectIds}}}, 
+                {$unwind:"$foods"},
+                {$match:{foods:{$in:foodObjectIds}}},
+                {$group:{"_id":"$_id","noOfMatches":{$sum:1},"name":{$first:"$name"},"author":{$first:"$author"} }},
+                {$sort:{noOfMatches:-1}},
             ])
             .limit(limit)
             .exec()

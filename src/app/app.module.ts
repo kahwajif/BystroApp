@@ -15,7 +15,6 @@ import { AppSettingsService } from './shared/services/appsettings.service'
 // pages
 import { DefaultHomeComponent } from './default/home.component';
 import { RecipeModule } from './recipe/recipe.module';
-import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -27,7 +26,6 @@ import { CommonModule } from '@angular/common';
     BrowserModule,
     HttpClientModule,
     FormsModule,
-    CommonModule,
     AppRoutingModule,
     RecipeModule,
   ],
