@@ -7,9 +7,6 @@ const RecipeDto = require('../models/dto/recipeDto');
 // POST: /api/recipe
 router.post('/', paginate(Recipe), async (req, res) => {
     try { //do logic here...
-        
-
-        
             
         res.json(res.paginate)
     } catch (err) {
@@ -22,7 +19,7 @@ router.get('/:id', async (req, res) => {
     try {
         //pagination not necessary. Showing only 1 recipe
         const r = await Recipe.findById(req.params.id).exec()
-        const recipeDtos = new RecipeDto(r.id, r.name,r.author,r.recipeUrl,r.imageUrl,r.cookTimeMinutes,
+        const recipeDtos = new RecipeDto(r._id,r.sourceId, r.name,r.author,r.recipeUrl,r.imageUrl,r.cookTimeMinutes,
             r.preparationTimeMinutes,r.servings,r.mainIngredient,r.ingredients,r.foods);
        
         res.json(recipeDtos);
