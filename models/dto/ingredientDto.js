@@ -1,5 +1,6 @@
  class IngredientDto {
-    constructor(sourceId,name,food,unit,quantity){
+    constructor(id,sourceId,name,food,unit,quantity){
+      this.id = id;
       this.sourceId = sourceId;
       this.name = name;
       this.food = food;
