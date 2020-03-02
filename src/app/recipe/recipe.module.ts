@@ -4,12 +4,14 @@ import { RecipeComponent } from './recipe.component';
 import { RecipeFindIngredientComponent } from './find-ingredient/find-ingredient.component';
 import { RecipeFindRecipeComponent } from './find-recipe/find-recipe.component';
 import { CommonModule } from '@angular/common';
+import { RecipeViewRecipeComponent } from './view-recipe/view-recipe.component';
 
 @NgModule({
     declarations: [
         RecipeComponent,
         RecipeFindIngredientComponent,
-        RecipeFindRecipeComponent
+        RecipeFindRecipeComponent,
+        RecipeViewRecipeComponent
     ],
     imports: [
         CommonModule,

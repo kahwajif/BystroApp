@@ -2,6 +2,7 @@ import { Component, Injector, OnInit, ViewChild, AfterViewInit, NgModule } from 
 import { Router, RouterModule } from '@angular/router';
 import { RecipeFindIngredientComponent } from './find-ingredient/find-ingredient.component'
 import { RecipeFindRecipeComponent } from './find-recipe/find-recipe.component'
+import { RecipeViewRecipeComponent } from './view-recipe/view-recipe.component'
 import { RecipeComponent } from './recipe.component';
 
 
@@ -14,6 +15,7 @@ import { RecipeComponent } from './recipe.component';
                 children: [
                     { path: 'find-ingredient', component: RecipeFindIngredientComponent },
                     { path: 'find-recipe', component: RecipeFindRecipeComponent },
+                    { path: 'find-recipe/:id', component: RecipeViewRecipeComponent },
                 ]
             }
         ])

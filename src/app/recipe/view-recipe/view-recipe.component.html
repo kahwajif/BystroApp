@@ -1,0 +1,35 @@
+
+
+<div *ngIf="recipe">
+    <div class="" style="height: 150px; width: 100%; background-size: cover;" [style.backgroundImage]="'url('+ recipe.imageUrl +')'">
+        &nbsp;
+    </div>
+
+    <h1>{{recipe.name}}</h1>
+    <h5>by {{recipe.author}}</h5>
+
+    <table>
+        <tr>
+            <td>Preparation Time:</td>
+            <td>{{recipe.preparationTimeMinutes}} min</td>
+        </tr>
+        <tr>
+            <td>Cook Time:</td>
+            <td>{{recipe.cookTimeMinutes}} min</td>
+        </tr>
+        <tr>
+            <td>Servings:</td>
+            <td>{{recipe.servings}}</td>
+        </tr>
+    </table>
+</div>
+
+<div class="row mt-3">
+    <div class="col-6">
+        <a routerLink="/recipe/find-recipe" class="btn btn-secondary w-100">Back to Recipes</a>
+    </div>
+    <div *ngIf="recipe" class="col-6">
+        <a href="{{recipe.recipeUrl}}" class="btn btn-primary w-100">View Original</a>
+    </div>
+</div>
+
