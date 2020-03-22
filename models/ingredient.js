@@ -22,6 +22,10 @@ const ingredientSchema = new Schema({
     quantity: {
         type: Number,
         required: true
+    },
+    FoodTypeId: {
+        type: Number,
+        required: true
     }
 });
 

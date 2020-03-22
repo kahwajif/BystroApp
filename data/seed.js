@@ -72,11 +72,16 @@ const getOrSeedIngredient = (sourceIngredient) => {
                 name: sourceIngredient.original,
                 unit: sourceIngredient.unit,
                 quantity: sourceIngredient.amount,
+                FoodTypeId: sourceIngredient.aisle
             });
-        
+            
+            newIngredient.FoodTypeId = 0; //0 "default", 1 is spice, 2 is produce, 3 is ??.
+            if (sourceIngredient.aisle === 'Spices and Seasonings') { newIngredient.FoodTypeId = 1; }
+            if (sourceIngredient.aisle === 'Produce') { newIngredient.FoodTypeId = 2; }
+            if (sourceIngredient.aisle === 'Meat') { newIngredient.FoodTypeId = 3; }
             var food = await getOrSeedFood(sourceIngredient.name);
             newIngredient.food = food;
-            
+
             var createdIngredient = await newIngredient.save();
             console.log(`added ${createdIngredient.name} to ingredients`);
             return resolve(createdIngredient);
@@ -138,10 +143,9 @@ const getOrSeedFood = (name) => {
             _id: new mongoose.Types.ObjectId(),
             name: name
         });
-    
+
         console.log(`adding ${name} to foods`);
         var createdFood = await newFood.save();
         return resolve(createdFood);
     });
 }
-
