@@ -11,6 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 export class RecipeViewRecipeComponent extends AppComponentBase implements OnInit, AfterViewInit {
 
     recipe: any;
+    savedRecipes: any[] = [];
 
     constructor(
         injector: Injector,
@@ -34,6 +35,21 @@ export class RecipeViewRecipeComponent extends AppComponentBase implements OnIni
             })
 
         });
+    }
+
+    saveRecipe = (recipe: any) => {
+        this._settings.addFavRecipe(recipe)
+        this.getSavedRecipes();
+    }
+
+    removeRecipe = (recipe: any) => {
+        this._settings.removeRecipe(recipe);
+        this.getSavedRecipes();
+    }
+
+    getSavedRecipes = () => {
+        this.savedRecipes = this._settings.getSavedRecipes();
+        console.log(this.savedRecipes)
     }
 
     onRecipeLoaded = (res) => {

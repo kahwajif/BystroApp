@@ -3,6 +3,7 @@ import { RecipeRoutingModule } from './recipe-routing.module';
 import { RecipeComponent } from './recipe.component';
 import { RecipeFindIngredientComponent } from './find-ingredient/find-ingredient.component';
 import { RecipeFindRecipeComponent } from './find-recipe/find-recipe.component';
+import { RecipeFavRecipeComponent } from './fav-recipes/fav-recipes.component';
 import { CommonModule } from '@angular/common';
 import { RecipeViewRecipeComponent } from './view-recipe/view-recipe.component';
 
@@ -11,6 +12,7 @@ import { RecipeViewRecipeComponent } from './view-recipe/view-recipe.component';
         RecipeComponent,
         RecipeFindIngredientComponent,
         RecipeFindRecipeComponent,
+        RecipeFavRecipeComponent,
         RecipeViewRecipeComponent
     ],
     imports: [

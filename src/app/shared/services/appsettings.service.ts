@@ -34,4 +34,26 @@ export class AppSettingsService {
   setSavedFoods(foods: any[]) {
     localStorage.setItem('foods', JSON.stringify(foods));
   }
+
+  addFavRecipe(recipe: any){
+      var recipes = this.getSavedRecipes();
+      recipes.push(recipe);
+      this.setSavedRecipes(recipes);
+  }
+
+  getSavedRecipes(): any[] {
+      let recipes = localStorage.getItem('recipes');
+      return recipes ? JSON.parse(recipes) : [];
+  }
+
+  setSavedRecipes(recipes: any[]){
+      localStorage.setItem('recipes', JSON.stringify(recipes));
+  }
+
+  removeRecipe(recipe: any) {
+    var recipes = this.getSavedRecipes();
+    _.remove(recipes, f => f.name == recipe.name);
+    this.setSavedRecipes(recipes);
+  }
+
 }

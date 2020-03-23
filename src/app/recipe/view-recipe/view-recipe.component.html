@@ -31,5 +31,10 @@
     <div *ngIf="recipe" class="col-6">
         <a href="{{recipe.recipeUrl}}" class="btn btn-primary w-100">View Original</a>
     </div>
+    <div class="col-6">
+        <a (click)="saveRecipe(recipe)" class="btn btn-warning w-100">Add to Favourites</a>
+    </div>
 </div>
+
+
 
