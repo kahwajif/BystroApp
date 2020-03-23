@@ -2,6 +2,7 @@ import { Component, Injector, OnInit, ViewChild, AfterViewInit } from '@angular/
 import { AppComponentBase } from '@shared/app-component-base';
 import { HttpClient } from '@angular/common/http';
 import { AppSettingsService } from '../shared/services/appsettings.service';
+import * as _ from 'lodash';
 
 @Component({
     templateUrl: './home.component.html'
@@ -10,7 +11,7 @@ import { AppSettingsService } from '../shared/services/appsettings.service';
 export class DefaultHomeComponent extends AppComponentBase implements OnInit, AfterViewInit {
 
     query: string = '';
-    searchResults: any[] = [];
+    searchResults: any;
     baseUrl: string = '';
     savedFoods: any[] = [];
 
@@ -40,10 +41,13 @@ export class DefaultHomeComponent extends AppComponentBase implements OnInit, Af
     }
 
     saveFood = (food: any) => {
-        this._settings.addSavedFood(food)
-        this.searchResults = [];
-        this.query = '';
-        this.getSavedFoods();
+        var savedFoods = this._settings.getSavedFoods();
+        if(!_.find(savedFoods, { id: food.id })){
+            this._settings.addSavedFood(food)
+            this.searchResults = [];
+            this.query = '';
+            this.getSavedFoods();
+        }
     }
 
     removeFood = (food: any) => {
@@ -53,10 +57,11 @@ export class DefaultHomeComponent extends AppComponentBase implements OnInit, Af
 
     getSavedFoods = () => {
         this.savedFoods = this._settings.getSavedFoods();
-        console.log(this.savedFoods)
     }
 
     onFoodsLoaded = (data: any) => {
-        this.searchResults = data.results;
+        let savedFoods = this._settings.getSavedFoods();
+        let savedFoodIds = savedFoods.map(food => food.id);
+        this.searchResults = data.results.filter(result => !_.includes(savedFoodIds, result.id));
     }
 }
