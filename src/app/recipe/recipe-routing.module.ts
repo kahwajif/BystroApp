@@ -3,6 +3,7 @@ import { Router, RouterModule } from '@angular/router';
 import { RecipeFindIngredientComponent } from './find-ingredient/find-ingredient.component'
 import { RecipeFindRecipeComponent } from './find-recipe/find-recipe.component'
 import { RecipeViewRecipeComponent } from './view-recipe/view-recipe.component'
+import { RecipeFavRecipeComponent } from './fav-recipes/fav-recipes.component'
 import { RecipeComponent } from './recipe.component';
 
 
@@ -16,6 +17,7 @@ import { RecipeComponent } from './recipe.component';
                     { path: 'find-ingredient', component: RecipeFindIngredientComponent },
                     { path: 'find-recipe', component: RecipeFindRecipeComponent },
                     { path: 'find-recipe/:id', component: RecipeViewRecipeComponent },
+                    { path: 'fav-recipes', component: RecipeFavRecipeComponent },
                 ]
             }
         ])
@@ -24,4 +26,4 @@ import { RecipeComponent } from './recipe.component';
         RouterModule
     ]
 })
-export class RecipeRoutingModule { } 
+export class RecipeRoutingModule { }
