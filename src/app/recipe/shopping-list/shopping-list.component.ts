@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
 
 export class RecipeShoppingListComponent extends AppComponentBase implements OnInit, AfterViewInit{
 
-    savedList: any[] = [];
+    savedShoppingList: any[] = [];
 
     constructor(
         injector: Injector,
@@ -24,30 +24,29 @@ export class RecipeShoppingListComponent extends AppComponentBase implements OnI
     }
 
     ngOnInit() {
-        this.savedList = this._settings.getSavedFoods();
-        console.log(this.savedList.map(recipe => recipe.id))
+        this.savedShoppingList = this._settings.getShoppingList();
         this._http.post(
                 `${this._settings.getBaseUrl()}/api/shopping-list`,
                 {
-                    recipeIds: this.savedList.map(food => food.id),
+                    foodIds: this.savedShoppingList.map(food => food.id),
                 }
             )
             .subscribe({
-                next: this.onSavedShoppingListLoaded
+                next: this.onShoppingListLoaded
             })
     }
 
-    removeFood = (food: any) => {
-        this._settings.removeFood(food);
-        this.getSavedFoods();
+    removeFromShoppingList = (food: any) => {
+        this._settings.removeFromShoppingList(food);
+        this.getShoppingList();
     }
 
-    getSavedFoods = () => {
-        this.savedList= this._settings.getSavedFoods();
+    getShoppingList = () => {
+        this.savedShoppingList= this._settings.getShoppingList();
     }
 
-    onSavedShoppingListLoaded = (res) => {
-        this.savedList = res.results;
+    onShoppingListLoaded = (res) => {
+        this.savedShoppingList = res.results;
     }
 
 

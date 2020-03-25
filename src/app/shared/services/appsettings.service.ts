@@ -21,18 +21,18 @@ export class AppSettingsService {
   }
 
   addToShoppingList(food: any){
-      var foods = this.getSavedFoods();
+      var foods = this.getShoppingList();
       foods.push(food);
       this.setShoppingList(foods);
   }
 
   getShoppingList(): any[] {
-    let foods = localStorage.getItem('foods');
+    let foods = localStorage.getItem('foodsList');
     return foods ? JSON.parse(foods) : [];
   }
 
   setShoppingList(foods: any[]) {
-    localStorage.setItem('foods', JSON.stringify(foods));
+    localStorage.setItem('foodsList', JSON.stringify(foods));
   }
 
   removeFromShoppingList(food: any) {
