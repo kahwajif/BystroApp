@@ -4,6 +4,7 @@ import { RecipeComponent } from './recipe.component';
 import { RecipeFindIngredientComponent } from './find-ingredient/find-ingredient.component';
 import { RecipeFindRecipeComponent } from './find-recipe/find-recipe.component';
 import { RecipeFavRecipeComponent } from './fav-recipes/fav-recipes.component';
+import { RecipeShoppingListComponent } from './shopping-list/shopping-list.component';
 import { CommonModule } from '@angular/common';
 import { RecipeViewRecipeComponent } from './view-recipe/view-recipe.component';
 
@@ -13,7 +14,8 @@ import { RecipeViewRecipeComponent } from './view-recipe/view-recipe.component';
         RecipeFindIngredientComponent,
         RecipeFindRecipeComponent,
         RecipeFavRecipeComponent,
-        RecipeViewRecipeComponent
+        RecipeViewRecipeComponent,
+        RecipeShoppingListComponent
     ],
     imports: [
         CommonModule,

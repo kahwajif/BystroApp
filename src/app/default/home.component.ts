@@ -14,6 +14,7 @@ export class DefaultHomeComponent extends AppComponentBase implements OnInit, Af
     searchResults: any;
     baseUrl: string = '';
     savedFoods: any[] = [];
+    savedShoppingList: any[] = [];
 
 
     constructor(
@@ -43,6 +44,16 @@ export class DefaultHomeComponent extends AppComponentBase implements OnInit, Af
     saveFood = (food: any) => {
         var savedFoods = this._settings.getSavedFoods();
         if(!_.find(savedFoods, { id: food.id })){
+            this._settings.addSavedFood(food)
+            this.searchResults = [];
+            this.query = '';
+            this.getSavedFoods();
+        }
+    }
+
+    saveToCart = (food: any) => {
+        var savedShoppingList = this._settings.getSavedFoods();
+        if(!_.find(savedShoppingList, { id: food.id })){
             this._settings.addSavedFood(food)
             this.searchResults = [];
             this.query = '';

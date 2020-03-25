@@ -20,6 +20,27 @@ export class AppSettingsService {
     this.setSavedFoods(foods);
   }
 
+  addToShoppingList(food: any){
+      var foods = this.getSavedFoods();
+      foods.push(food);
+      this.setShoppingList(foods);
+  }
+
+  getShoppingList(): any[] {
+    let foods = localStorage.getItem('foods');
+    return foods ? JSON.parse(foods) : [];
+  }
+
+  setShoppingList(foods: any[]) {
+    localStorage.setItem('foods', JSON.stringify(foods));
+  }
+
+  removeFromShoppingList(food: any) {
+    var foods = this.getShoppingList();
+    _.remove(foods, f => f.name == food.name);
+    this.setShoppingList(foods);
+  }
+
   removeFood(food: any) {
     var foods = this.getSavedFoods();
     _.remove(foods, f => f.name == food.name);

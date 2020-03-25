@@ -1,11 +1,16 @@
 <div class="py-3">
-    
+
     <input class="form-control" [(ngModel)]="query" (ngModelChange)="searchFood()" >
 
-    <div *ngIf="searchResults" class="mb-3">
-        <p *ngFor="let food of searchResults" (click)="saveFood(food)">
-            {{food.id}}: {{food.name}}
-        </p>
+    <div *ngIf="searchResults" class="mb-2">
+            <div  class="d-flex justify-content-between border p-2 rounded mb-2" *ngFor="let food of searchResults" (click)="saveFood(food)">
+                <span class="align-middle justify-content-center">
+                    {{food.id}}: {{food.name}}
+                </span>
+                <span class="align-middle text-primary" (click)="saveToCart(recipe)">
+                    <i class="fa fa-cart-plus"></i>
+                </span>
+            </div>
     </div>
 
     <div *ngIf="savedFoods.length">
