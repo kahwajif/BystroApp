@@ -39,6 +39,16 @@ export class RecipeFavRecipeComponent extends AppComponentBase implements OnInit
             })
     }
 
+    removeRecipe = (recipe: any) => {
+        this._settings.removeRecipe(recipe);
+        this.getSavedRecipes();
+    }
+
+    getSavedRecipes = () => {
+        this.savedRecipes = this._settings.getSavedRecipes();
+        console.log(this.savedRecipes)
+    }
+
     onSavedRecipesLoaded = (res) => {
         console.log(res)
         this.savedRecipes = res.results;
