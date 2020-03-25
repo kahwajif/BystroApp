@@ -25,13 +25,13 @@
 </div>
 
 <div class="row mt-3">
-    <div class="col-6">
+    <div class="col-4">
         <a routerLink="/recipe/find-recipe" class="btn btn-secondary w-100">Back to Recipes</a>
     </div>
-    <div *ngIf="recipe" class="col-6">
+    <div *ngIf="recipe" class="col-4">
         <a href="{{recipe.recipeUrl}}" class="btn btn-primary w-100">View Original</a>
     </div>
-    <div class="col-6">
+    <div class="col-4">
         <a (click)="saveRecipe(recipe)" class="btn btn-warning w-100">Add to Favourites</a>
     </div>
 </div>

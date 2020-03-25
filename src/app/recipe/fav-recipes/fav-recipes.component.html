@@ -1,10 +1,13 @@
 <h1>Favourite Recipes</h1>
 
-    <a [routerLink]="['/recipe/find-recipe', recipe._id]" class="d-flex justify-content-between border p-2 rounded mb-2" *ngFor="let recipe of savedRecipes">
-        <strong>{{recipe.name}}</strong><br />
+    <a  class="d-flex justify-content-between border p-2 rounded mb-2" *ngFor="let recipe of savedRecipes">
+        <span>
+            <strong [routerLink]="['/recipe/find-recipe', recipe.id]">{{recipe.name}}</strong><br />
+        </span>
+
 
         <span class="align-middle text-danger" (click)="removeRecipe(recipe)">
-        <i class="fal fa-times"></i>
+            <i class="fal fa-times"></i>
         </span>
     </a>
 

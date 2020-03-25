@@ -50,7 +50,6 @@ export class RecipeFavRecipeComponent extends AppComponentBase implements OnInit
     }
 
     onSavedRecipesLoaded = (res) => {
-        console.log(res)
         this.savedRecipes = res.results;
     }
 
