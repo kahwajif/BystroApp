@@ -2,6 +2,7 @@ const _ = require('lodash');
 const express = require('express');
 const router = express.Router();
 const Recipe = require('../models/recipe');
+const Ingredient = require('../models/ingredient');
 const ObjectId = require('mongoose').Types.ObjectId
 const RecipeDto = require('../models/dto/recipeDto');
 
@@ -19,9 +20,15 @@ router.post('/', paginate(Recipe), async (req, res) => {
 router.get('/:id', async (req, res) => {
     try {
         //pagination not necessary. Showing only 1 recipe
-        const r = await Recipe.findById(req.params.id).exec()
+        let r = await Recipe.findById(req.params.id).exec();
+
+        let foodObjectIds = r.ingredients.map(i => ObjectId(i));
+        let ingredients = await Ingredient.find({
+            '_id': { $in: foodObjectIds }
+        }).exec();
+
         const recipeDtos = new RecipeDto(r._id,r.sourceId, r.name,r.author,r.recipeUrl,r.imageUrl,r.cookTimeMinutes,
-            r.preparationTimeMinutes,r.servings,r.mainIngredient,r.ingredients,r.foods);
+            r.preparationTimeMinutes,r.servings,r.mainIngredient,ingredients,r.foods);
        
         res.json(recipeDtos);
     } catch (err) {
