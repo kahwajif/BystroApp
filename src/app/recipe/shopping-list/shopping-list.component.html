@@ -1,4 +1,14 @@
 <h1>Shopping List</h1>
+<div class="py-3">
+<input class="form-control" [(ngModel)]="query" (ngModelChange)="searchFood()" >
+
+<div *ngIf="searchResults" class="mb-2">
+    <div  class="d-flex justify-content-between border p-2 rounded mb-2" *ngFor="let food of searchResults" (click)="addFoodToShoppingList(food)">
+        <span class="align-middle justify-content-center">
+            {{food.id}}: {{food.name}}
+        </span>
+    </div>
+</div>
 
 <a  class="d-flex justify-content-between border p-2 rounded mb-2" *ngFor="let food of savedShoppingList">
     <span>
@@ -9,3 +19,5 @@
         <i class="fal fa-times"></i>
     </span>
 </a>
+</div>
+

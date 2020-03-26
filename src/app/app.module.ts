@@ -15,12 +15,14 @@ import { AppSettingsService } from './shared/services/appsettings.service'
 // pages
 import { DefaultHomeComponent } from './default/home.component';
 import { RecipeModule } from './recipe/recipe.module';
+import { RecipeShoppingListComponent } from './recipe/shopping-list/shopping-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TopNavComponent,
-    DefaultHomeComponent
+    DefaultHomeComponent,
+    RecipeShoppingListComponent
   ],
   imports: [
     BrowserModule,
