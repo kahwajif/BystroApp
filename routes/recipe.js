@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const express = require('express');
 const router = express.Router();
 const Recipe = require('../models/recipe');
@@ -6,8 +7,8 @@ const RecipeDto = require('../models/dto/recipeDto');
 
 // POST: /api/recipe
 router.post('/', paginate(Recipe), async (req, res) => {
-    try { //do logic here...
-            
+    try { 
+        //do logic here...
         res.json(res.paginate)
     } catch (err) {
         res.status(400).json({ message: err.message });
@@ -57,21 +58,44 @@ function paginate(model){
             const foodObjectIds = foodIds.map(id => ObjectId(id))
 
             //DTO not need as the information returned is already specifically selected in $group
-            const recipes = await Recipe.aggregate([
-                {$match:{"foods":{$in:foodObjectIds}}}, 
-                {$unwind:"$foods"},
-                {$match:{foods:{$in:foodObjectIds}}},
-                {$group:{"_id":"$_id","noOfMatches":{$sum:1},"name":{$first:"$name"},"author":{$first:"$author"} }},
-                {$sort:{noOfMatches:-1}},
-            ])
-            .limit(limit)
-            .exec()
-                
+            const matchingRecipes = await Recipe
+                .aggregate([
+                    { $match: { "foods": { $in: foodObjectIds } } },
+                    { $unwind: "$foods" },
+                    { $match: { foods: { $in: foodObjectIds } } },
+                    { $group: { 
+                        "_id": "$_id", 
+                        "noOfMatches": { $sum: 1 } }
+                    },
+                    { $sort: { noOfMatches: -1 } },
+                ])
+                .limit(limit)
+                .exec();
+
+            let recipes = await Recipe
+                .find({ "_id": { $in: matchingRecipes.map(r => r._id) } })
+                .exec();
+
+            // convert recipes to list of json objects
+            recipes = recipes.map(r => r.toObject());
+
+            // calculate the percentage match
+            for(let i = 0; i < recipes.length; i++) {
+                let recipe = recipes[i];
+
+                var queryFoodIds = foodObjectIds.map(foi => foi.toString());
+                var resultFoodIds = recipe.foods.map(f => f.toString());
+                let commonFoodIds = _.intersection(queryFoodIds, resultFoodIds);
+
+                recipes[i].percentageMatch = commonFoodIds.length / recipe.foods.length;
+            }
+
             results.results = recipes;
             res.paginate = results;
 
             next();
         } catch (e) {
+            console.error(e);
             res.status(500).json({message: e.message});
         };
     };
