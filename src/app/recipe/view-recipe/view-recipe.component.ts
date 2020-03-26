@@ -42,6 +42,15 @@ export class RecipeViewRecipeComponent extends AppComponentBase implements OnIni
         this.getSavedRecipes();
     }
 
+    saveIngredients = (recipe: any) => {
+
+        for (var i=0; i <recipe.ingredients.length; i++){
+            this._settings.addIngToShoppingList(recipe.ingredients[i].name);
+        }
+
+        this.getSavedRecipes();
+    }
+
     removeRecipe = (recipe: any) => {
         this._settings.removeRecipe(recipe);
         this.getSavedRecipes();

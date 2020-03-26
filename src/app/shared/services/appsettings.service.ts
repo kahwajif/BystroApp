@@ -20,10 +20,18 @@ export class AppSettingsService {
     this.setSavedFoods(foods);
   }
 
+  //add food to s.list
   addToShoppingList(food: any){
       var foods = this.getShoppingList();
       foods.push(food);
       this.setShoppingList(foods);
+  }
+
+  //add ingredient to s.list
+  addIngToShoppingList(ing: any){
+      var ings = this.getShoppingList();
+      ings.push(ing);
+      this.setShoppingList(ings);
   }
 
   getShoppingList(): any[] {
@@ -36,8 +44,9 @@ export class AppSettingsService {
   }
 
   removeFromShoppingList(food: any) {
+
     var foods = this.getShoppingList();
-    _.remove(foods, f => f.name == food.name);
+    _.remove(foods, f => f == food);
     this.setShoppingList(foods);
   }
 

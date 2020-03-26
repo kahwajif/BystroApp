@@ -52,7 +52,7 @@ export class RecipeShoppingListComponent extends AppComponentBase implements OnI
     addFoodToShoppingList = (food: any) => {
         var savedShoppingList = this._settings.getShoppingList();
         if(!_.find(savedShoppingList, { id: food.id })){
-            this._settings.addToShoppingList(food)
+            this._settings.addToShoppingList(food.name)
             this.searchResults = [];
             this.query = '';
             this.getShoppingList();
@@ -66,6 +66,7 @@ export class RecipeShoppingListComponent extends AppComponentBase implements OnI
 
     getShoppingList = () => {
         this.savedShoppingList= this._settings.getShoppingList();
+        console.log(this.savedShoppingList)
     }
 
     onShoppingListLoaded = (data:any) => { //res
