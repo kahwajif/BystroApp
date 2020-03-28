@@ -52,13 +52,13 @@ export class DefaultHomeComponent extends AppComponentBase implements OnInit, Af
     }
 
     addFoodToShoppingList = (food: any) => {
-        var savedShoppingList = this._settings.getShoppingList();
-        if(!_.find(savedShoppingList, { id: food.id })){
-            this._settings.addToShoppingList(food)
-            this.searchResults = [];
-            this.query = '';
-            //this.getShoppingList();
-        }
+        // var savedShoppingList = this._settings.getShoppingList();
+        // if(!_.find(savedShoppingList, { id: food.id })){
+        //     this._settings.addToShoppingList(food)
+        //     this.searchResults = [];
+        //     this.query = '';
+        //     //this.getShoppingList();
+        // }
     }
 
     removeFood = (food: any) => {

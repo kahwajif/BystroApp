@@ -23,9 +23,12 @@ router.get('/:id', async (req, res) => {
         let r = await Recipe.findById(req.params.id).exec();
 
         let foodObjectIds = r.ingredients.map(i => ObjectId(i));
-        let ingredients = await Ingredient.find({
-            '_id': { $in: foodObjectIds }
-        }).exec();
+        let ingredients = await Ingredient
+            .find({
+                '_id': { $in: foodObjectIds }
+            })
+            .populate('food')
+            .exec();
 
         const recipeDtos = new RecipeDto(r._id,r.sourceId, r.name,r.author,r.recipeUrl,r.imageUrl,r.cookTimeMinutes,
             r.preparationTimeMinutes,r.servings,r.mainIngredient,ingredients,r.foods);

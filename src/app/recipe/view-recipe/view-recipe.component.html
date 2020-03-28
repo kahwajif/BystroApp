@@ -1,12 +1,23 @@
-
-
 <div *ngIf="recipe">
-    <div class="" style="height: 150px; width: 100%; background-size: cover;" [style.backgroundImage]="'url('+ recipe.imageUrl +')'">
+    <div class="row" style="height: 150px; background-size: cover; background-position: center;" [style.backgroundImage]="'url('+ recipe.imageUrl +')'">
         &nbsp;
     </div>
 
-    <h1>{{recipe.name}}</h1>
-    <h5>by {{recipe.author}}</h5>
+    <div class="d-flex justify-content-between">
+        <div>
+            <h5>{{recipe.name}}</h5>
+            <h6>by {{recipe.author}}</h6>
+        </div>
+
+
+        <span *ngIf="isFavorite" (click)="toggleFavoriteRecipe(recipe)" class="p-1 float-right">
+            <i class="fad fa-bookmark fa-fw fa-2x text-warning"></i>
+        </span>
+        <span *ngIf="!isFavorite" (click)="toggleFavoriteRecipe(recipe)" class="p-1 float-right">
+            <i class="fad fa-bookmark fa-fw fa-2x text-secondary"></i>
+        </span>
+    </div>
+
 
     <table>
         <tr>
@@ -32,10 +43,7 @@
         <a href="{{recipe.recipeUrl}}" class="btn btn-primary w-100">View Original</a>
     </div>
     <div class="col-3">
-        <a (click)="saveRecipe(recipe)" class="btn btn-warning w-100">Add to Favourites</a>
-    </div>
-    <div class="col-3">
-        <a (click)="saveIngredients(recipe)" class="btn btn-warning w-100">Add to Shopping List</a>
+        <a (click)="addIngredientsToShoppingList(recipe)" class="btn btn-warning w-100">Add to Shopping List</a>
     </div>
 </div>
 

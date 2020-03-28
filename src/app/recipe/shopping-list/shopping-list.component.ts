@@ -3,6 +3,7 @@ import { AppComponentBase } from '@shared/app-component-base';
 import { AppSettingsService } from '../../shared/services/appsettings.service';
 import { HttpClient } from '@angular/common/http';
 import * as _ from 'lodash';
+import { ShoppingListItem } from 'src/models/shopping-list-item.model';
 
 @Component({
     templateUrl: './shopping-list.component.html'
@@ -10,11 +11,10 @@ import * as _ from 'lodash';
 
 export class RecipeShoppingListComponent extends AppComponentBase implements OnInit, AfterViewInit{
 
-    savedShoppingList: any[] = [];
+    shoppingListItems: ShoppingListItem[] = [];
     query: string = '';
     searchResults: any;
     baseUrl: string = '';
-
 
     constructor(
         injector: Injector,
@@ -29,51 +29,38 @@ export class RecipeShoppingListComponent extends AppComponentBase implements OnI
     }
 
     ngOnInit() {
-        this.savedShoppingList = this._settings.getShoppingList();
+        this.shoppingListItems = this._settings.getShoppingListItems();
         this.baseUrl = this._settings.getBaseUrl();
-        /*this._http.post(
-                `${this._settings.getBaseUrl()}/api/shopping-list`,
-                {
-                    foodIds: this.savedShoppingList.map(food => food.id),
-                }
-            )
-            .subscribe({
-                next: this.onShoppingListLoaded
-            })*/
+    }
+
+    addFoodToShoppingList = (shoppingListItem: ShoppingListItem) => {
+        var savedShoppingList = this._settings.getShoppingListItems();
+        // if(!_.find(savedShoppingList, { id: food.id })){
+        //     this._settings.addIngredientToShoppingList(food.name)
+        //     this.searchResults = [];
+        //     this.query = '';
+        //     this.getShoppingList();
+        // }
+    }
+
+    removeFromShoppingList = (shoppingListItem: ShoppingListItem) => {
+        this._settings.removeFromShoppingList(shoppingListItem);
+        this.getShoppingList();
+    }
+
+    getShoppingList = () => {
+        this.shoppingListItems = this._settings.getShoppingListItems();
     }
 
     searchFood = () => {
         this._http.get(`${this.baseUrl}/api/food?limit=10&page=1&name=${this.query}`)
             .subscribe({
-                next: this.onShoppingListLoaded
+                next: this.onFoodsLoaded
             })
     }
 
-    addFoodToShoppingList = (food: any) => {
-        var savedShoppingList = this._settings.getShoppingList();
-        if(!_.find(savedShoppingList, { id: food.id })){
-            this._settings.addToShoppingList(food.name)
-            this.searchResults = [];
-            this.query = '';
-            this.getShoppingList();
-        }
-    }
-
-    removeFromShoppingList = (food: any) => {
-        this._settings.removeFromShoppingList(food);
-        this.getShoppingList();
-    }
-
-    getShoppingList = () => {
-        this.savedShoppingList= this._settings.getShoppingList();
-        console.log(this.savedShoppingList)
-    }
-
-    onShoppingListLoaded = (data:any) => { //res
-        //this.savedShoppingList = res.results;
-        let savedFoods = this._settings.getShoppingList();
-        let savedFoodIds = savedFoods.map(food => food.id);
-        this.searchResults = data.results.filter(result => !_.includes(savedFoodIds, result.id));
+    onFoodsLoaded = (data: any) => { 
+        this.searchResults = data.results;
     }
 
 }
