@@ -16,24 +16,25 @@ export class AppSettingsService {
   }
 
   // FOODS ==============================================================================
-  addSavedFood(food: any) {
+  addSavedFood(food: Food) {
     var foods = this.getSavedFoods();
+    food.dateAdded = new Date();
     foods.push(food);
     this.setSavedFoods(foods);
   }
 
-  removeFood(food: any) {
+  removeFood(food: Food) {
     var foods = this.getSavedFoods();
     _.remove(foods, f => f.name == food.name);
     this.setSavedFoods(foods);
   }
 
-  getSavedFoods(): any[] {
+  getSavedFoods(): Food[] {
     let foods = localStorage.getItem('foods');
     return foods ? JSON.parse(foods) : [];
   }
 
-  setSavedFoods(foods: any[]) {
+  setSavedFoods(foods: Food[]) {
     localStorage.setItem('foods', JSON.stringify(foods));
   }
   // END FOODS ==========================================================================
@@ -48,28 +49,15 @@ export class AppSettingsService {
     var shoppingListItems = this.getShoppingListItems();
     shoppingListItems.push(...items);
     this.setShoppingListItems(items);
-    console.log(items);
-    console.log(this.getShoppingListItems())
   }
 
   addIngredientToShoppingList(ingredient: Ingredient) {
-    var item = new ShoppingListItem();
-    item.description = `${ingredient.quantity} ${ingredient.unit} ${ingredient.food.name}`;
-    item.isSelected = false;
-    item.uuid = uuidv4();
-
+    var item = new ShoppingListItem().fromIngredient(ingredient);
     this.addShoppingListItem(item);
   }
 
   addIngredientsToShoppingList(ingredients: Ingredient[]) {
-    var items = ingredients.map(ingredient => {
-      var item = new ShoppingListItem();
-      item.description = `${ingredient.quantity} ${ingredient.unit} ${ingredient.food.name}`;
-      item.isSelected = false;
-      item.uuid = uuidv4();
-      return item;
-    });
-
+    var items = ingredients.map(ingredient => new ShoppingListItem().fromIngredient(ingredient));
     this.addShoppingListItems(items);
   }
 
@@ -82,9 +70,21 @@ export class AppSettingsService {
     localStorage.setItem('shoppingListItems', JSON.stringify(items));
   }
 
+  updateShoppingListItem(item: ShoppingListItem) {
+    var items = this.getShoppingListItems();
+    var index = _.findIndex(items, i => i.uuid === item.uuid);
+    items[index] = item;
+    this.setShoppingListItems(items);
+  }
+
   removeFromShoppingList(item: ShoppingListItem) {
     var items = this.getShoppingListItems();
     _.remove(items, i => i.uuid === item.uuid);
+    this.setShoppingListItems(items);
+  }
+
+  removeSelectedShoppingListItems() {
+    var items = this.getShoppingListItems().filter(i => !i.isSelected);
     this.setShoppingListItems(items);
   }
   // END SHOPPING LIST ITEMS ============================================================

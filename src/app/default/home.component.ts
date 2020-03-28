@@ -3,6 +3,7 @@ import { AppComponentBase } from '@shared/app-component-base';
 import { HttpClient } from '@angular/common/http';
 import { AppSettingsService } from '../shared/services/appsettings.service';
 import * as _ from 'lodash';
+import { Food } from 'src/models/food.model';
 
 @Component({
     templateUrl: './home.component.html'
@@ -11,11 +12,10 @@ import * as _ from 'lodash';
 export class DefaultHomeComponent extends AppComponentBase implements OnInit, AfterViewInit {
 
     query: string = '';
-    searchResults: any;
     baseUrl: string = '';
-    savedFoods: any[] = [];
-    savedShoppingList: any[] = [];
 
+    searchResults: any;
+    savedFoods: Food[] = [];
 
     constructor(
         injector: Injector,
@@ -34,14 +34,14 @@ export class DefaultHomeComponent extends AppComponentBase implements OnInit, Af
         this.getSavedFoods();
     }
 
-    searchFood = () => {
+    searchFood(): void {
         this._http.get(`${this.baseUrl}/api/food?limit=10&page=1&name=${this.query}`)
             .subscribe({
                 next: this.onFoodsLoaded
             })
     }
 
-    saveFood = (food: any) => {
+    saveFood(food: Food): void {
         var savedFoods = this._settings.getSavedFoods();
         if(!_.find(savedFoods, { id: food.id })){
             this._settings.addSavedFood(food)
@@ -51,26 +51,19 @@ export class DefaultHomeComponent extends AppComponentBase implements OnInit, Af
         }
     }
 
-    addFoodToShoppingList = (food: any) => {
-        // var savedShoppingList = this._settings.getShoppingList();
-        // if(!_.find(savedShoppingList, { id: food.id })){
-        //     this._settings.addToShoppingList(food)
-        //     this.searchResults = [];
-        //     this.query = '';
-        //     //this.getShoppingList();
-        // }
-    }
-
-    removeFood = (food: any) => {
+    removeFood(food: Food): void {
         this._settings.removeFood(food);
         this.getSavedFoods();
     }
 
-    getSavedFoods = () => {
-        this.savedFoods = this._settings.getSavedFoods();
+    getSavedFoods(): void {
+        this.savedFoods = this._settings.getSavedFoods().sort((a,b) => { 
+            return Date.parse(b.dateAdded.toString()) - Date.parse(a.dateAdded.toString())
+        });
     }
 
-    onFoodsLoaded = (data: any) => {
+    onFoodsLoaded = (data: any): void => {
+        console.log(data)
         let savedFoods = this._settings.getSavedFoods();
         let savedFoodIds = savedFoods.map(food => food.id);
         this.searchResults = data.results.filter(result => !_.includes(savedFoodIds, result.id));

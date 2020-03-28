@@ -7,7 +7,8 @@ import { Recipe } from 'src/models/recipe.model';
 import * as _ from 'lodash';
 
 @Component({
-    templateUrl: './view-recipe.component.html'
+    templateUrl: './view-recipe.component.html',
+    styleUrls: ['./view-recipe.component.less']
 })
 
 export class RecipeViewRecipeComponent extends AppComponentBase implements OnInit, AfterViewInit {
@@ -59,7 +60,6 @@ export class RecipeViewRecipeComponent extends AppComponentBase implements OnIni
 
     isRecipeInFavorites(recipe: Recipe): boolean {
         var favoriteRecipes = this._settings.getFavoriteRecipes();
-        console.log(favoriteRecipes.filter(r => r.id === recipe.id))
         return favoriteRecipes.filter(r => r.id === recipe.id).length > 0;
     }
 }

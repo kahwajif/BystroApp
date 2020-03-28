@@ -1,30 +1,72 @@
-<h1>Shopping List</h1>
-<div class="py-3">
-    <input class="form-control" [(ngModel)]="query" (ngModelChange)="searchFood()">
+<h5 class="font-weight-bold mt-2">Shopping List</h5>
 
-    <div *ngIf="searchResults" class="mb-2">
-        <div class="d-flex justify-content-between border p-2 rounded mb-2" *ngFor="let food of searchResults"
-            (click)="addFoodToShoppingList(food)">
-            <div class="align-middle justify-content-center">
-                {{food.id}}: {{food.name}}
+<div class="bg-white rounded shadow-sm p-2 mb-5">
+
+    <div class="">
+        <div class="d-flex justify-content-between align-items-center p-1 rounded my-1 border-bottom"
+            *ngFor="let item of shoppingListItems" (click)="toggleItemIsSelected(item)">
+            <div class="d-flex align-items-center">
+                <span class="fa-stack" [class.text-success]="item.isSelected" [class.text-secondary]="!item.isSelected">
+                    <i class="fal fa-square fa-stack-2x"></i>
+                    <i *ngIf="item.isSelected" class="fal fa-check fa-stack-1x"></i>
+                </span>
+                <strong>{{item.quantity}} {{item.description}}</strong>
+            </div>
+            <span class="align-middle text-danger" (click)="removeFromShoppingList(item)">
+                <i class="fad fa-times fa-fw"></i>
+            </span>
+        </div>
+
+        <button *ngIf="hasSelectedItems" class="btn btn-danger btn-block" (click)="removeSelectedShoppingListItems()">
+            Remove Selected
+        </button>
+    </div>
+
+    <!-- Shopping List Item Form -->
+    <div id="shopping-list-item-form" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add to Shopping List</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span><i class="fal fa-times"></i></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Units</span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="(optional)" [(ngModel)]="quantity">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Item</span>
+                        </div>
+                        <input class="form-control" [(ngModel)]="description" (ngModelChange)="searchFood()">
+                    </div>
+
+                    <div *ngIf="searchResults" class="mb-2 overflow-auto" [style.max-height.vh]="50"
+                        [style.overflow]="scroll">
+                        <div class="d-flex justify-content-between border p-2 rounded mb-2"
+                            *ngFor="let food of searchResults" (click)="setDescription(food)">
+                            <div class="align-middle justify-content-center">
+                                {{food.name}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal"
+                        (click)="saveToShoppingList()">Save Item</button>
+                </div>
             </div>
         </div>
     </div>
-    <div>
-        <a class="d-flex justify-content-between border p-2 rounded mb-2" *ngFor="let item of shoppingListItems">
-            <span>
-                <strong>{{item.description}}</strong><br />
-            </span>
-
-            <span class="align-middle text-danger" (click)="removeFromShoppingList(item)">
-                <i class="fal fa-times"></i>
-            </span>
-        </a>
+    <!-- Floating Action Button -->
+    <div class="floating-action-button fab-blue active d-md-none" data-toggle="modal"
+        data-target="#shopping-list-item-form">
+        <i class="fad fa-bookmark fa-plus fa-fw"></i>
     </div>
-
 </div>
-
-<!-- Floating Action Button -->
-<!-- <button (click)="showAddShoppingItemForm()">
-    <i class="fal fa-plus fa-fw"></i>
-</button> -->

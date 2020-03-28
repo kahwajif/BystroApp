@@ -26,7 +26,7 @@ export class RecipeFindRecipeComponent extends AppComponentBase implements OnIni
 
     ngOnInit() {
         this.savedFoods = this._settings.getSavedFoods();
-        console.log(this.savedFoods.map(food => food.id))
+        
         this._http.post(
                 `${this._settings.getBaseUrl()}/api/recipe`,
                 {
