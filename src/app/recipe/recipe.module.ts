@@ -10,6 +10,7 @@ import { RecipeViewRecipeComponent } from './view-recipe/view-recipe.component';
 import { FormsModule } from '@angular/forms';
 import { RecipeAddRecipeComponent } from './add-recipe/add-recipe.component';
 import { RecipeViewAddedRecipeComponent } from './view-added-recipe/view-added-recipe.component';
+import { RecipeSpiceRackComponent } from './spice-rack/spice-rack.component';
 
 @NgModule({
     declarations: [
@@ -20,7 +21,8 @@ import { RecipeViewAddedRecipeComponent } from './view-added-recipe/view-added-r
         RecipeViewRecipeComponent,
         RecipeShoppingListComponent,
         RecipeAddRecipeComponent,
-        RecipeViewAddedRecipeComponent
+        RecipeViewAddedRecipeComponent,
+        RecipeSpiceRackComponent
     ],
     imports: [
         CommonModule,

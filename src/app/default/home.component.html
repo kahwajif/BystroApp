@@ -44,11 +44,15 @@
                 <div *ngIf="searchResults" class="mb-2 overflow-auto" [style.max-height.vh]="50"
                     [style.overflow]="scroll">
                     <a class="d-flex justify-content-between border p-2 rounded mb-2" type="button" data-toggle="modal" data-target="#add-ingredient-form"
-                        *ngFor="let food of searchResults" (click)="saveFood(food)">
-                        <div class="align-middle justify-content-center">
+                        *ngFor="let food of searchResults" >
+                        <div class="align-middle justify-content-center" (click)="saveFood(food)">
                             {{food.name}}
                         </div>
+                        <span class="align-middle text-primary" (click)="saveToSpiceRack(food)">
+                            <i class="fad fa-plus-circle"></i>
+                        </span>
                     </a>
+
                 </div>
             </div>
             <div class="modal-footer">

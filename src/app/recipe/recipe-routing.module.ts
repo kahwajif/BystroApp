@@ -8,7 +8,7 @@ import { RecipeShoppingListComponent } from './shopping-list/shopping-list.compo
 import { RecipeComponent } from './recipe.component';
 import { RecipeAddRecipeComponent } from './add-recipe/add-recipe.component';
 import { RecipeViewAddedRecipeComponent } from './view-added-recipe/view-added-recipe.component';
-
+import { RecipeSpiceRackComponent } from './spice-rack/spice-rack.component';
 
 @NgModule({
     imports: [
@@ -23,7 +23,8 @@ import { RecipeViewAddedRecipeComponent } from './view-added-recipe/view-added-r
                     { path: 'fav-recipes', component: RecipeFavRecipeComponent },
                     { path: 'shopping-list', component: RecipeShoppingListComponent },
                     { path: 'add-recipe', component: RecipeAddRecipeComponent },
-                    { path: 'view-added-recipe', component: RecipeViewAddedRecipeComponent }
+                    { path: 'view-added-recipe', component: RecipeViewAddedRecipeComponent },
+                    { path: 'spice-rack', component: RecipeSpiceRackComponent }
                 ]
             }
         ])

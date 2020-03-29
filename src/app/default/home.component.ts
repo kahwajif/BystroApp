@@ -57,10 +57,15 @@ export class DefaultHomeComponent extends AppComponentBase implements OnInit, Af
     }
 
     getSavedFoods(): void {
-        this.savedFoods = this._settings.getSavedFoods().sort((a,b) => { 
+        this.savedFoods = this._settings.getSavedFoods().sort((a,b) => {
             return Date.parse(b.dateAdded.toString()) - Date.parse(a.dateAdded.toString())
         });
     }
+
+    saveToSpiceRack = (food: Food) => {
+        this._settings.addToSpiceRack(food);
+    }
+
 
     onFoodsLoaded = (data: any): void => {
         console.log(data)

@@ -103,11 +103,39 @@ export class AppSettingsService {
   setFavoriteRecipes(recipes: Recipe[]) {
     localStorage.setItem('favoriteRecipes', JSON.stringify(recipes));
   }
-  
+
   removeFavoriteRecipe(recipe: Recipe) {
     var recipes = this.getFavoriteRecipes();
     _.remove(recipes, r => r.id == recipe.id);
     this.setFavoriteRecipes(recipes);
   }
   // END FAVORITE RECIPES ===============================================================
+  // SPICE RACK =========================================================================
+  addToSpiceRack(food: Food) {
+    var foods = this.getSpiceRack();
+    food.dateAdded = new Date();
+    foods.push(food);
+    this.setSpiceRack(foods);
+  }
+
+  removeFromSpiceRack(food: Food) {
+    var foods = this.getSpiceRack();
+    _.remove(foods, f => f.name == food.name);
+    this.setSpiceRack(foods);
+  }
+
+  getSpiceRack(): Food[] {
+    let foods = localStorage.getItem('spice');
+    return foods ? JSON.parse(foods) : [];
+  }
+
+  setSpiceRack(foods: Food[]) {
+    localStorage.setItem('spice', JSON.stringify(foods));
+  }
+
+
+  // END SPICE RACK =========================================================================
+
+
+
 }
