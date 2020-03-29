@@ -6,6 +6,8 @@ import { RecipeViewRecipeComponent } from './view-recipe/view-recipe.component'
 import { RecipeFavRecipeComponent } from './fav-recipes/fav-recipes.component'
 import { RecipeShoppingListComponent } from './shopping-list/shopping-list.component'
 import { RecipeComponent } from './recipe.component';
+import { RecipeAddRecipeComponent } from './add-recipe/add-recipe.component';
+import { RecipeViewAddedRecipeComponent } from './view-added-recipe/view-added-recipe.component';
 
 
 @NgModule({
@@ -20,6 +22,8 @@ import { RecipeComponent } from './recipe.component';
                     { path: 'find-recipe/:id', component: RecipeViewRecipeComponent },
                     { path: 'fav-recipes', component: RecipeFavRecipeComponent },
                     { path: 'shopping-list', component: RecipeShoppingListComponent },
+                    { path: 'add-recipe', component: RecipeAddRecipeComponent },
+                    { path: 'view-added-recipe', component: RecipeViewAddedRecipeComponent }
                 ]
             }
         ])

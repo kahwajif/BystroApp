@@ -1,0 +1,66 @@
+<h1>{{title}}</h1>
+<form #userForm="ngForm">
+    {{userForm.value | json}}
+    <div class = "form-group pt-2">
+        <label>Recipe Title:</label>
+        <input class="form-control" id="recipeTitle" type="text" name="RecipeTitle" ngModel>
+    </div>
+
+    <!--Input Ingredients-->
+    <div class = "form-group">
+        <label for="">Ingredients (e.g. 2 teaspoons of salt):</label>
+
+        <input #newItem class="form-control" name="ingr"
+            (keyup.enter)="addItem(newItem.value); newItem.value=''"
+            (blur)="addItem(newItem.value); addItem.value=''"
+            ngModel>
+
+        <button class="btn btn-primary d-block mt-1"
+            (click)="addItem(addItem.value); newItem.value=''">Add
+        </button>
+
+        <ul><li *ngFor="let item of items">
+                {{item}}
+                <span class="text danger pl-3" (click)="removeItem(item)">
+                    <i class="fal fa-times"></i>
+                </span>
+            </li>
+        </ul>
+    </div>
+
+    <!--Input Instructions-->
+    <div class = "form-group">
+        <label>Instructions:</label>
+
+        <input #newInstruct class="form-control" name="instr"
+            (keyup.enter)="addInst(newInstruct.value); newInstruct.value=''"
+            (blur)="addInst(newInstruct.value); addInst.value=''"
+            ngModel>
+
+        <button class="btn btn-primary d-block mt-1"
+            (click)="addInst(addInst.value); newInstruct.value=''">Add
+        </button>
+
+        <ul><li *ngFor="let instruct of instructs">
+                {{instruct}}
+                <span class="text danger pl-3" (click)="removeInst(instruct)">
+                    <i class="fal fa-times"></i>
+                </span>
+            </li>
+        </ul>
+    </div>
+
+    <div class = "form-group">
+        <label class="mt-2">Cook Time:</label>
+        <input class="form-control" type="text" name="cookTime" ngModel>
+
+        <label class="mt-2">Preparation Time:</label>
+        <input class="form-control" type="text" name="prepTime" ngModel>
+
+        <label class="mt-2">Servings:</label>
+        <input class="form-control" type="text" name="servings"ngModel>
+    </div>
+
+
+    <a class="btn btn-primary d-block" routerLink="/recipe/view-added-recipe">Submit</a>
+</form>
