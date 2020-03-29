@@ -3,15 +3,19 @@ import { AppComponentBase } from '@shared/app-component-base';
 import { AppSettingsService } from '../../shared/services/appsettings.service';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
+import { Recipe } from 'src/models/recipe.model';
+import * as _ from 'lodash';
 
 @Component({
-    templateUrl: './view-recipe.component.html'
+    templateUrl: './view-recipe.component.html',
+    styleUrls: ['./view-recipe.component.less']
 })
 
 export class RecipeViewRecipeComponent extends AppComponentBase implements OnInit, AfterViewInit {
 
-    recipe: any;
-    savedRecipes: any[] = [];
+    recipe: Recipe;
+    savedRecipes: Recipe[] = [];
+    isFavorite: boolean = false;
 
     constructor(
         injector: Injector,
@@ -33,26 +37,29 @@ export class RecipeViewRecipeComponent extends AppComponentBase implements OnIni
             .subscribe({
                 next: this.onRecipeLoaded
             })
-
         });
     }
 
-    saveRecipe = (recipe: any) => {
-        this._settings.addFavRecipe(recipe)
-        this.getSavedRecipes();
+    toggleFavoriteRecipe = (recipe: Recipe) => {
+        if(this.isRecipeInFavorites(recipe)) {
+            this._settings.removeFavoriteRecipe(recipe)
+        } else {
+            this._settings.addFavoriteRecipe(recipe)
+        }
+        this.isFavorite = !this.isFavorite;
     }
 
-    removeRecipe = (recipe: any) => {
-        this._settings.removeRecipe(recipe);
-        this.getSavedRecipes();
+    addIngredientsToShoppingList = (recipe: Recipe) => {
+        this._settings.addIngredientsToShoppingList(recipe.ingredients);
     }
 
-    getSavedRecipes = () => {
-        this.savedRecipes = this._settings.getSavedRecipes();
-        console.log(this.savedRecipes)
+    onRecipeLoaded = (response: Recipe) => {
+        this.recipe = response;
+        this.isFavorite = this.isRecipeInFavorites(response);
     }
 
-    onRecipeLoaded = (res) => {
-        this.recipe = res;
+    isRecipeInFavorites(recipe: Recipe): boolean {
+        var favoriteRecipes = this._settings.getFavoriteRecipes();
+        return favoriteRecipes.filter(r => r.id === recipe.id).length > 0;
     }
 }

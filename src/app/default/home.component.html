@@ -1,26 +1,16 @@
+<h5 class="font-weight-bold mb-0 mt-2">Your Ingredients</h5>
+<h6 class="font-weight-bold mb-3 small">add more ingredients to find better recipes</h6>
+
 <div class="py-3">
-
-    <input class="form-control" [(ngModel)]="query" (ngModelChange)="searchFood()" >
-
-    <div *ngIf="searchResults" class="mb-2">
-            <div  class="d-flex justify-content-between border p-2 rounded mb-2" *ngFor="let food of searchResults" (click)="saveFood(food)">
-                <span class="align-middle justify-content-center">
-                    {{food.id}}: {{food.name}}
-                </span>
-                <span class="align-middle text-primary" (click)="addFoodToShoppingList(food)">
-                    <i class="fa fa-cart-plus"></i>
-                </span>
-            </div>
-    </div>
-
-    <div *ngIf="savedFoods.length">
-        <p class="mb-2">Saved Ingredients:</p>
-        <div class="d-flex justify-content-between border p-2 rounded mb-2" *ngFor="let food of savedFoods">
-            <span class="align-middle justify-content-center">
-                {{food.name}}
+    <div *ngIf="savedFoods" class="mb-2">
+        <div class="d-flex justify-content-between align-items-center border p-2 rounded mb-2"
+            *ngFor="let food of savedFoods">
+            <span>
+                <strong>{{food.name}}</strong><br />
+                <small class="text-secondary">{{food.dateAdded | date:'short'}}</small>
             </span>
             <span class="align-middle text-danger" (click)="removeFood(food)">
-                <i class="fal fa-times"></i>
+                <i class="fad fa-times fa-fw"></i>
             </span>
         </div>
     </div>
@@ -29,4 +19,46 @@
         <a class="btn btn-primary d-block" routerLink="/recipe/find-recipe">Find Recipes</a>
     </div>
     <a class="btn btn-primary d-block mt-3" routerLink="/recipe/add-recipe">Create Recipe</a>
+</div>
+
+<!-- Add Ingredient Form -->
+<div id="add-ingredient-form" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add Ingredient</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span><i class="fal fa-times"></i></span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="input-group mb-3">
+                    <input class="form-control" [(ngModel)]="query" (ngModelChange)="searchFood()">
+                    <div class="input-group-append">
+                        <span class="input-group-text">
+                            <i class="fad fa-search fa-fw text-primary"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <div *ngIf="searchResults" class="mb-2 overflow-auto" [style.max-height.vh]="50"
+                    [style.overflow]="scroll">
+                    <a class="d-flex justify-content-between border p-2 rounded mb-2" type="button" data-toggle="modal" data-target="#add-ingredient-form"
+                        *ngFor="let food of searchResults" (click)="saveFood(food)">
+                        <div class="align-middle justify-content-center">
+                            {{food.name}}
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Floating Action Button -->
+<div class="floating-action-button fab-blue active d-md-none" data-toggle="modal" data-target="#add-ingredient-form">
+    <i class="fad fa-bookmark fa-plus fa-fw"></i>
 </div>

@@ -1,0 +1,38 @@
+@import './bystro/variables';
+
+
+.floating-action-button {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 4rem;
+    height: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid;
+    border-radius: 50px;
+    font-size: 1.75rem;
+
+    color: $gray-600;
+    background-color: lighten($gray-600, 40%);
+    border-color: $gray-400;
+
+    @extend .shadow;
+
+    &.active.fab-yellow {
+        color: $yellow;
+        background-color: lighten($yellow, 40%);
+        border-color: lighten($yellow, 30%);
+    }
+
+    &.active.fab-blue {
+        color: $blue;
+        background-color: lighten($blue, 40%);
+        border-color: lighten($blue, 30%);
+    }
+}
+
+.nav-primary {
+    border-bottom: 1px solid $gray-400;
+}

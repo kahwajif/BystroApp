@@ -2,6 +2,7 @@ import { Component, Injector, OnInit, ViewChild, AfterViewInit } from '@angular/
 import { AppComponentBase } from '@shared/app-component-base';
 import { AppSettingsService } from '../../shared/services/appsettings.service';
 import { HttpClient } from '@angular/common/http';
+import { Recipe } from 'src/models/recipe.model';
 
 @Component({
     templateUrl: './fav-recipes.component.html'
@@ -9,7 +10,7 @@ import { HttpClient } from '@angular/common/http';
 
 export class RecipeFavRecipeComponent extends AppComponentBase implements OnInit, AfterViewInit{
 
-    savedRecipes: any[] = [];
+    favoriteRecipes: Recipe[] = [];
 
     constructor(
         injector: Injector,
@@ -24,34 +25,16 @@ export class RecipeFavRecipeComponent extends AppComponentBase implements OnInit
     }
 
     ngOnInit() {
-        this.savedRecipes = this._settings.getSavedRecipes();
-        console.log(this.savedRecipes.map(recipe => recipe.id))
-        this._http.post(
-                `${this._settings.getBaseUrl()}/api/fav-recipes`,
-                {
-                    recipeIds: this.savedRecipes.map(recipe => recipe.id),
-                    page: 1,
-                    limit: 10
-                }
-            )
-            .subscribe({
-                next: this.onSavedRecipesLoaded
-            })
+        this.favoriteRecipes = this._settings.getFavoriteRecipes();
     }
 
-    removeRecipe = (recipe: any) => {
-        this._settings.removeRecipe(recipe);
-        this.getSavedRecipes();
+    removeFavoriteRecipe = (recipe: Recipe) => {
+        this._settings.removeFavoriteRecipe(recipe);
+        this.getFavoriteRecipes();
     }
 
-    getSavedRecipes = () => {
-        this.savedRecipes = this._settings.getSavedRecipes();
-        console.log(this.savedRecipes)
+    getFavoriteRecipes = () => {
+        this.favoriteRecipes = this._settings.getFavoriteRecipes();
     }
-
-    onSavedRecipesLoaded = (res) => {
-        this.savedRecipes = res.results;
-    }
-
 }
 

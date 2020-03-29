@@ -25,6 +25,20 @@
     pointer-events: none;
     cursor: default;
   }
+
+  &.active {
+    color: $blue !important;
+    border-bottom: 2px solid $blue !important;
+  }
+
+  &:not(.active):hover {
+    color: lighten($blue, 30%) !important;
+    border-bottom: 2px solid lighten($blue, 30%) !important;
+  }
+
+  &:not(.active) {
+    color: $gray-400;
+  }
 }
 
 //

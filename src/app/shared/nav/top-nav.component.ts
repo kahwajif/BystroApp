@@ -1,5 +1,6 @@
 import { AppComponentBase } from '@shared/app-component-base'
 import { Component, OnInit, ViewEncapsulation, Injector } from '@angular/core'
+import { Router } from '@angular/router';
 
 @Component({
     templateUrl: './top-nav.component.html',
@@ -10,7 +11,7 @@ import { Component, OnInit, ViewEncapsulation, Injector } from '@angular/core'
 export class TopNavComponent extends AppComponentBase implements OnInit {
 
     constructor(
-        injector: Injector
+        injector: Injector,
     ) {
         super(injector);
     }
