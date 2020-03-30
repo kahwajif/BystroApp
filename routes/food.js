@@ -6,8 +6,8 @@ const FoodDto = require('../models/dto/foodDto');
 // GET: /api/food?query=:query
 router.get('/', paginate(Food), async (req, res) => {
     try {
-        
-        
+
+
         res.json(res.paginate);
     } catch (err) {
         res.status(500).json({ message: err.message });
@@ -19,7 +19,7 @@ router.post('/', async (req, res) => {
         name: req.body.name
     });
     try {
-        
+
         const newFood = await food.save();
         res.status(201).json(newFood);
     } catch (err) {
@@ -40,10 +40,10 @@ function paginate(model){
         if (endIndex < await model.countDocuments().exec()){
             results.next ={
                 page: page + 1,
-                limit: limit              
+                limit: limit
             };
         };
-        
+
         if (startIndex > 0){
             results.previous = {
                 page: page - 1,
@@ -51,14 +51,15 @@ function paginate(model){
             };
         };
         try{
+
             const foods = await model
                 .find({$text: {$search: req.query.name}}) //{ name: { $regex: `.*${req.query.name}.*`}}
                 .limit(limit)
                 .skip(startIndex)
                 .exec();
-            
-            const foodDto = foods.map(f => new FoodDto(f.id,f.name));
-            
+
+            const foodDto = foods.map(f => new FoodDto(f._id, f.name, f.foodTypeId));
+
             results.results = foodDto;
             res.paginate = results;
 

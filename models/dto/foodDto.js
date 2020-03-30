@@ -1,9 +1,10 @@
  class FoodDto {
-    constructor(id, name){
+    constructor(id, name, type){
+      this._id = id;
       this.name = name;
-      this.id = id;
+      this.foodTypeId = type;
     }
-  
+
 }
 
 module.exports = FoodDto;

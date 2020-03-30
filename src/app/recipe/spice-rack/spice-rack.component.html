@@ -1,5 +1,48 @@
 <h5 class="font-weight-bold mt-2">Spice Rack</h5>
 
+<!-- Add Ingredient Form -->
+<div id="add-ingredient-form" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add Spice</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span><i class="fal fa-times"></i></span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="input-group mb-3">
+                    <input class="form-control" [(ngModel)]="query" (ngModelChange)="searchSpice()">
+                    <div class="input-group-append">
+                        <span class="input-group-text">
+                            <i class="fad fa-search fa-fw text-primary"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <div *ngIf="searchResults" class="mb-2 overflow-auto" [style.max-height.vh]="50"
+                    [style.overflow]="scroll">
+                    <a class="d-flex justify-content-between border p-2 rounded mb-2" type="button" data-toggle="modal" data-target="#add-ingredient-form"
+                        *ngFor="let food of searchResults" >
+                        <div class="align-middle justify-content-center" (click)="saveSpice(food)">
+                            {{food.name}}
+                        </div>
+                    </a>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Floating Action Button -->
+<div class="floating-action-button fab-blue active d-md-none" data-toggle="modal" data-target="#add-ingredient-form">
+    <i class="fad fa-bookmark fa-plus fa-fw"></i>
+</div>
+
 <a  class="d-flex justify-content-between border p-2 rounded mb-2" *ngFor="let food of spiceRack">
     <span>
         <strong>{{food.name}}</strong><br />
