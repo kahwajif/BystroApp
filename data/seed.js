@@ -75,11 +75,7 @@ const getOrSeedIngredient = (sourceIngredient) => {
                 FoodTypeId: sourceIngredient.aisle
             });
             
-            newIngredient.FoodTypeId = 0; //0 "default", 1 is spice, 2 is produce, 3 is ??.
-            if (sourceIngredient.aisle === 'Spices and Seasonings') { newIngredient.FoodTypeId = 1; }
-            if (sourceIngredient.aisle === 'Produce') { newIngredient.FoodTypeId = 2; }
-            if (sourceIngredient.aisle === 'Meat') { newIngredient.FoodTypeId = 3; }
-            var food = await getOrSeedFood(sourceIngredient.name);
+            var food = await getOrSeedFood(sourceIngredient);
             newIngredient.food = food;
 
             var createdIngredient = await newIngredient.save();
@@ -131,7 +127,8 @@ const getOrSeedRecipe = (sourceRecipe) => {
     })
 }
 
-const getOrSeedFood = (name) => {
+const getOrSeedFood = (sourceIngredient) => {
+    const name = sourceIngredient.name;
     return new Promise(async (resolve, reject) => {
         const food = await Food.findOne({ name: name });
         if(food){
@@ -139,9 +136,19 @@ const getOrSeedFood = (name) => {
             return resolve(food);
         }
     
+        let foodTypeId = 0;
+        if (sourceIngredient.aisle === 'Spices and Seasonings') { 
+            foodTypeId = 1; 
+        } else if (sourceIngredient.aisle === 'Produce') { 
+            foodTypeId = 2; 
+        } else if (sourceIngredient.aisle === 'Meat') { 
+            foodTypeId = 3; 
+        }
+
         const newFood = new Food({
             _id: new mongoose.Types.ObjectId(),
-            name: name
+            name: name,
+            foodTypeId: foodTypeId
         });
 
         console.log(`adding ${name} to foods`);

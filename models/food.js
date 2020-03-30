@@ -7,6 +7,10 @@ const foodSchema = new Schema({
         type: String,
         text: true,
         required: true
+    },
+    foodTypeId: {
+        type: Number,
+        required: true
     }
 });
 
