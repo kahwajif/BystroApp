@@ -59,6 +59,16 @@ export class RecipeSpiceRackComponent extends AppComponentBase implements OnInit
     }
 
     onSpiceRackLoaded = (data: any) => {
-        this.searchResults = data.results;
+
+        var spiceResults=[];
+
+        //get spices only
+        for(var item of data.results){
+            if (item.foodTypeId == 1){
+                spiceResults.push(item);
+            }
+        }
+
+        this.searchResults = spiceResults;
     }
 }
