@@ -1,6 +1,6 @@
  class FoodDto {
     constructor(id, name, type){
-      this._id = id;
+      this.id = id;
       this.name = name;
       this.foodTypeId = type;
     }

@@ -58,7 +58,7 @@ function paginate(model){
                 .skip(startIndex)
                 .exec();
 
-            const foodDto = foods.map(f => new FoodDto(f._id, f.name, f.foodTypeId));
+            const foodDto = foods.map(f => new FoodDto(f.id, f.name, f.foodTypeId));
 
             results.results = foodDto;
             res.paginate = results;
