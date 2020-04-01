@@ -1,5 +1,6 @@
 import { Ingredient } from './ingredient.model';
 import { Food } from './food.model';
+import { v4 as uuidv4 } from 'uuid';
 
 export class Recipe {
     id: string;
@@ -14,4 +15,12 @@ export class Recipe {
     mainIngredient: string;
     ingredients: Ingredient[];
     foods: Food[]
+    instructions: string[];
+    uuid: string;
+
+    constructor() {
+        if(!this.uuid) {
+            this.uuid = uuidv4();
+        }
+    }
 }

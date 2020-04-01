@@ -21,7 +21,7 @@ export class RecipeFindRecipeComponent extends AppComponentBase implements OnIni
     }
 
     ngAfterViewInit(): void {
-
+        
     }
 
     ngOnInit() {

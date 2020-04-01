@@ -2,19 +2,27 @@ import { Component, Injector, OnInit, ViewChild, AfterViewInit } from '@angular/
 import { AppComponentBase } from '@shared/app-component-base';
 import { HttpClient } from '@angular/common/http';
 import { AppSettingsService } from '../../shared/services/appsettings.service';
+import { Recipe } from 'src/models/recipe.model';
+import { Ingredient } from 'src/models/ingredient.model';
 
 @Component({
     templateUrl: './add-recipe.component.html'
 })
 
 export class RecipeAddRecipeComponent extends AppComponentBase implements OnInit, AfterViewInit{
-
-    title = 'Create Recipe'; 
-    items: string[] = [];
+    
+    customRecipes: Recipe[] = []; //stores all the custom recipes
+    recipeName: string;
+    cookTime: number;
+    prepTime: number;
+    servings: number;
+    recipeIngs: Recipe["ingredients"] = [];//stores ingredients of type Ingredient that contain name & quantity
+    ingName: string;
+    ingQuantity: string;
     instructs: string[] = [];
-    savedInstructions: string[]=[];
-    savedIngredients: string[]=[];
-
+    OneInst: string;//holds the value of 1 instruction
+    baseUrl: string = '';
+    
     constructor(
         injector: Injector,
         private _http: HttpClient,
@@ -24,31 +32,60 @@ export class RecipeAddRecipeComponent extends AppComponentBase implements OnInit
     }
 
     ngAfterViewInit(): void {}
-    ngOnInit() {}
+    ngOnInit() {
+        this.baseUrl = this._settings.getBaseUrl();
+        //this.getCustomRecipe();
+    }
 
-    //add ingredient
-    addItem(newItem) {
-        if (newItem) {
-                this.items.push(newItem);
+    //save the whole form
+    saveCustomRecipe= () =>{
+        var recipe = new Recipe();
+        recipe.name = this.recipeName;
+        recipe.ingredients = this.recipeIngs;
+        recipe.instructions = this.instructs;
+        recipe.cookTimeMinutes = this.cookTime;
+        recipe.preparationTimeMinutes = this.prepTime;
+        recipe.servings = this.servings;
+        this._settings.addCustomRecipe(recipe);
+        this.resetForm();
+        this.getCustomRecipe();
+    }
+    resetForm(): void {
+        this.recipeName = '';
+        this.recipeIngs = [];
+        this.instructs = [];
+        this.cookTime=0;
+        this.prepTime=0;
+        this.servings=0;
+    }
+    getCustomRecipe = () => {
+        this.customRecipes = this._settings.getCustomRecipes();
+    }
+    saveIngredients(ingredientName,ingredientQuantity){
+        if(ingredientName && ingredientQuantity){
+            var ingredient = new Ingredient();
+            ingredient.name = this.ingName;
+            ingredient.quantity = this.ingQuantity;
+            this.recipeIngs.push(ingredient)
+            this.ingName ='';
+            this.ingQuantity='';
         }
     }
-    removeItem(item: string){
-        this.items = this.items.filter(i => i !== item);
+    removeIngredient(index){
+        //we use splice because its an array of objects
+        this.recipeIngs.splice(index, 1);
     }
 
-    saveIngredient(ingredient: any){
-        var savedFoods = this._settings.getSavedFoods();
-        
-    }
-
-    //add instructions
-    addInst(newInstruct) {
-        if (newInstruct) {
-                this.instructs.push(newInstruct);
+    //save the instructions into instructs array
+    instructionsToArray(instruction: string){
+        if(instruction){
+            this.instructs.push(instruction);
+            this.OneInst = '';
         }
-    }
-    removeInst(instruct: string){
-        this.instructs = this.instructs.filter(i => i !== instruct);
+    } 
+
+    removeInstruction(instruction: string){
+        this.instructs = this.instructs.filter(i => i !== instruction);
     }
     
 }

@@ -3,24 +3,29 @@ import { Component, Injector, OnInit, ViewChild, AfterViewInit } from '@angular/
 import { AppComponentBase } from '@shared/app-component-base';
 import { HttpClient } from '@angular/common/http';
 import { AppSettingsService } from '../../shared/services/appsettings.service';
+import { Recipe } from 'src/models/recipe.model';
 
 @Component({
     templateUrl: './view-added-recipe.component.html'
 })
 
 export class RecipeViewAddedRecipeComponent extends AppComponentBase implements OnInit, AfterViewInit{
-    title = 'Custom Recipes';
-    items: string[] = [];
-    instructs: string[] = [];
+
+    customRecipes: Recipe[] = [];
+
     constructor(
         injector: Injector,
         private _http: HttpClient,
-        private _settings: AppSettingsService
+        private _settings: AppSettingsService,
     ) {
         super(injector);
     }
 
     ngAfterViewInit(): void {}
-    ngOnInit() {}
+    ngOnInit() {
+        this.customRecipes = this._settings.getCustomRecipes();
+        
+    }
     
+
 }

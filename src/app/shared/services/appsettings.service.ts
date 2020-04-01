@@ -88,6 +88,27 @@ export class AppSettingsService {
     this.setShoppingListItems(items);
   }
   // END SHOPPING LIST ITEMS ============================================================
+  // CUSTOM RECIPES =====================================================================
+  addCustomRecipe(recipe: Recipe) {
+    var recipes = this.getCustomRecipes();
+    recipes.push(recipe);
+    this.setCustomRecipes(recipes);
+  }
+  getCustomRecipes(): Recipe[] {
+    let recipes = localStorage.getItem('customRecipes');
+    return recipes ? JSON.parse(recipes) : [];
+  }
+  setCustomRecipes(recipes: Recipe[]) {
+    localStorage.setItem('customRecipes', JSON.stringify(recipes));
+  }
+  //removeCustomRecipe(recipe: Recipe) {var recipes = this.getCustomRecipes();_.remove(recipes, i => i.uuid === recipes.uuid);this.setCustomRecipes(recipes);}
+  updateCustomRecipe(recipe: Recipe) {
+    var recipes = this.getCustomRecipes();
+    var index = _.findIndex(recipes, i => i.uuid === recipe.uuid);
+    recipes[index] = recipe;
+    this.setCustomRecipes(recipes);
+  }
+  // END CUSTOM RECIPES =================================================================
   // FAVORITE RECIPES ===================================================================
   getFavoriteRecipes(): Recipe[] {
     let recipes = localStorage.getItem('favoriteRecipes');
@@ -132,10 +153,5 @@ export class AppSettingsService {
   setSpiceRack(foods: Food[]) {
     localStorage.setItem('spice', JSON.stringify(foods));
   }
-
-
   // END SPICE RACK =========================================================================
-
-
-
 }

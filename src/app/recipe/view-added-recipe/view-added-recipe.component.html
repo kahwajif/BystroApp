@@ -1,8 +1,18 @@
-<h1>{{title}}</h1>
+<h5 class="font-weight-bold mb-0 mt-2">Custom Recipes</h5>
+{{customRecipes.ingredients.name}}
+<!--maybe only show the name then click to expand to view the rest?-->
+<div class="d-block border text-sm p-2 text-dark mb-2" *ngFor="let recipe of customRecipes">
+    <strong>{{recipe.name}}</strong><br/>
+    Ingredients: 
 
-<a routerLink='/recipe/view-added-recipe' class="d-block border text-sm p-2 text-dark mb-2" *ngFor="let recipe of recipes">
-    <strong>{{recipe.name}}</strong><br />
-    <span>{{recipe._id}}</span>
-</a>
+    <p *ngFor="let ingredient of customRecipes.ingredients"> 
+        {{ingredient.name}}
+    </p>
+    
+    <p>Instructions: {{recipe.instructions}}</p>
+    <p>Cook Time: {{recipe.cookTimeMinutes}} minutes</p>
+    <p>Preparation Time: {{recipe.preparationTimeMinutes}} minutes</p>
+    <p>Servings: {{recipe.servings}}</p>
+</div>
 
-<a class="btn btn-primary d-block mb-5" routerLink="/">Back to Ingredients</a>
+<a class="btn btn-primary d-block mb-5 mt-3" routerLink="/recipe/add-recipe">Create Recipe</a>
