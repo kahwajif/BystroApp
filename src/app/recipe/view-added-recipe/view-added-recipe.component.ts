@@ -12,6 +12,7 @@ import { Recipe } from 'src/models/recipe.model';
 export class RecipeViewAddedRecipeComponent extends AppComponentBase implements OnInit, AfterViewInit{
 
     customRecipes: Recipe[] = [];
+    Object = Object; //used for Recipe.ingredients objects
 
     constructor(
         injector: Injector,
@@ -24,8 +25,10 @@ export class RecipeViewAddedRecipeComponent extends AppComponentBase implements 
     ngAfterViewInit(): void {}
     ngOnInit() {
         this.customRecipes = this._settings.getCustomRecipes();
-        
     }
-    
 
+    removeRecipe(recipe: Recipe){
+        this._settings.removeCustomRecipe(recipe);//removes from local
+        this.customRecipes = this.customRecipes.filter(i => i !== recipe);//removes from view
+    }
 }

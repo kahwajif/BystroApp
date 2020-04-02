@@ -1,6 +1,5 @@
 <h1>Create Recipe</h1>
 <form #userForm="ngForm">
-    {{userForm.value | json}}
     <hr/>
     <div class = "form-group pt-2">
         <label>Recipe Name:</label>
@@ -55,9 +54,10 @@
         <label class="mt-2">Preparation Time(minutes):</label>
         <input class="form-control" type="number" name="prepTime" [(ngModel)]="prepTime">
 
-        <label class="mt-2">Servings(minutes):</label>
+        <label class="mt-2">Servings:</label>
         <input class="form-control" type="number" name="servings" [(ngModel)]="servings">
     </div>
 
-    <a class="btn btn-primary d-block mb-5 mt-2" routerLink="/recipe/view-added-recipe" (click)="saveCustomRecipe()">Submit</a>
+    <a class="btn btn-primary d-block mt-2" routerLink="/recipe/view-added-recipe" (click)="saveCustomRecipe()">Submit</a>
+    <a class="btn btn-primary d-block mb-5 mt-2" routerLink="/recipe/view-added-recipe">Back</a>
 </form>

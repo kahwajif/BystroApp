@@ -101,7 +101,11 @@ export class AppSettingsService {
   setCustomRecipes(recipes: Recipe[]) {
     localStorage.setItem('customRecipes', JSON.stringify(recipes));
   }
-  //removeCustomRecipe(recipe: Recipe) {var recipes = this.getCustomRecipes();_.remove(recipes, i => i.uuid === recipes.uuid);this.setCustomRecipes(recipes);}
+  removeCustomRecipe(recipe: Recipe) {
+    var recipes = this.getCustomRecipes();
+    _.remove(recipes, i => i.uuid === recipe.uuid);
+    this.setCustomRecipes(recipes);}
+    
   updateCustomRecipe(recipe: Recipe) {
     var recipes = this.getCustomRecipes();
     var index = _.findIndex(recipes, i => i.uuid === recipe.uuid);
