@@ -1,9 +1,9 @@
 <div *ngIf="recipe">
-    <div class="row mb-2" style="height: 150px; background-size: cover; background-position: center;" [style.backgroundImage]="'url('+ recipe.imageUrl +')'">
+    <div *ngIf="recipe.imageUrl" class="row" style="height: 150px; background-size: cover; background-position: center;" [style.backgroundImage]="'url('+ recipe.imageUrl +')'">
         &nbsp;
     </div>
 
-    <div class="d-flex justify-content-between align-items-center">
+    <div class="d-flex justify-content-between align-items-center mt-2">
         <div>
             <h5 class="font-weight-bold">{{recipe.name}}</h5>
             <h6>by <strong>{{recipe.author}}</strong></h6>
@@ -32,22 +32,37 @@
     <div *ngFor="let ingredient of recipe.ingredients">
         {{ingredient.quantity}} {{ingredient.unit}} {{ingredient.food.name}}
     </div>
+
+    <h6 class="font-weight-bold">Instructions</h6>
+    <div *ngFor="let instruction of recipe.instructions">
+        {{instruction}}
+    </div>
 </div>
 
 <div class="row mt-3" *ngIf="recipe">
-    <div class="col-sm-3 mb-2">
-        <a routerLink="/recipe/find-recipe" class="btn btn-secondary w-100">Back to Recipes</a>
+    <div *ngIf="!isCustomRecipe" class="col-sm-3 mb-2">
+        <a routerLink="/recipes/find-recipe" class="btn btn-secondary w-100">Back to Recipes</a>
+    </div>
+    <div *ngIf="isCustomRecipe" class="col-sm-3 mb-2">
+        <a routerLink="/recipes/custom-recipes" class="btn btn-secondary w-100">Back to Custom Recipes</a>
     </div>
     <div class="col-sm-3 mb-2">
         <a href="{{recipe.recipeUrl}}" class="btn btn-primary w-100">View Original</a>
     </div>
     <div class="col-sm-3 mb-2">
-        <a (click)="addIngredientsToShoppingList(recipe)" class="btn btn-warning w-100">Add to Shopping List</a>
+        <button (click)="addIngredientsToShoppingList(recipe)" class="btn btn-warning w-100">Add to Shopping List</button>
+    </div>
+    <div *ngIf="!isCustomRecipe" class="col-sm-3 mb-2">
+        <a [routerLink]="['/recipes/edit-recipe', recipe.id]" class="btn btn-warning w-100">Customize this Recipe</a>
     </div>
 </div>
 
-<div *ngIf="recipe" class="floating-action-button fab-yellow d-md-none" [class.active]="isFavorite" (click)="toggleFavoriteRecipe(recipe)">
+<div *ngIf="recipe && !isCustomRecipe" class="floating-action-button fab-yellow d-md-none" [class.active]="isFavorite" (click)="toggleFavoriteRecipe(recipe)">
     <i class="fad fa-bookmark fa-fw"></i>
+</div>
+
+<div *ngIf="recipe && isCustomRecipe" class="floating-action-button fab-yellow d-md-none active" [routerLink]="['/recipes/edit-recipe', recipe.id]">
+    <i class="fad fa-pencil fa-fw"></i>
 </div>
 
 

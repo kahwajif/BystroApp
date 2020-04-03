@@ -6,8 +6,8 @@
         <div class="d-flex justify-content-between align-items-center border p-2 rounded mb-2"
             *ngFor="let food of savedFoods">
             <span>
-                <strong>{{food.name}}</strong><br />
-                <small class="text-secondary">{{food.dateAdded | date:'short'}}</small>
+                <strong>{{food.name}}</strong>
+                <!-- <small class="text-secondary">{{food.dateAdded | date:'short'}}</small> -->
             </span>
             <span class="align-middle text-danger" (click)="removeFood(food)">
                 <i class="fad fa-times fa-fw"></i>
@@ -16,9 +16,9 @@
     </div>
 
     <div *ngIf="savedFoods.length">
-        <a class="btn btn-primary d-block" routerLink="/recipe/find-recipe">Find Recipes</a>
+        <a class="btn btn-primary d-block" routerLink="/recipes/find-recipe">Find Recipes</a>
     </div>
-    <a class="btn btn-primary d-block mt-3" routerLink="/recipe/view-added-recipe">Custom Recipes</a>
+    <a class="btn btn-primary d-block mt-3" routerLink="/recipes/custom-recipes">Custom Recipes</a>
 </div>
 
 <!-- Add Ingredient Form -->
@@ -44,10 +44,8 @@
                 <div *ngIf="searchResults" class="mb-2 overflow-auto" [style.max-height.vh]="50"
                     [style.overflow]="scroll">
                     <a class="d-flex justify-content-between border p-2 rounded mb-2" type="button" data-toggle="modal" data-target="#add-ingredient-form"
-                        *ngFor="let food of searchResults" >
-                        <div class="align-middle justify-content-center" (click)="saveFood(food)">
-                            {{food.name}}
-                        </div>
+                        *ngFor="let food of searchResults" (click)="saveFood(food)">
+                        {{food.name}}
                     </a>
 
                 </div>

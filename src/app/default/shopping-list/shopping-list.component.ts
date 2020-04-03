@@ -11,7 +11,7 @@ import { $ } from 'protractor';
     templateUrl: './shopping-list.component.html'
 })
 
-export class RecipeShoppingListComponent extends AppComponentBase implements OnInit, AfterViewInit{
+export class DefaultShoppingListComponent extends AppComponentBase implements OnInit, AfterViewInit{
 
     shoppingListItems: ShoppingListItem[] = [];
     searchResults: Food[] = [];

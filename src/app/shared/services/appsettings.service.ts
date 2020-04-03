@@ -4,9 +4,9 @@ import { Observable, of } from 'rxjs';
 import { environment } from '../../../environments/environment'
 import * as _ from 'lodash';
 import { ShoppingListItem } from 'src/models/shopping-list-item.model';
-import { Ingredient } from 'src/models/ingredient.model';
 import { Food } from 'src/models/food.model';
 import { v4 as uuidv4 } from 'uuid';
+import { Ingredient } from 'src/models/ingredient.model';
 import { Recipe } from 'src/models/recipe.model';
 
 @Injectable()
@@ -47,8 +47,7 @@ export class AppSettingsService {
 
   addShoppingListItems(items: ShoppingListItem[]) {
     var shoppingListItems = this.getShoppingListItems();
-    shoppingListItems.push(...items);
-    this.setShoppingListItems(items);
+    this.setShoppingListItems(_.union(shoppingListItems, items));
   }
 
   addIngredientToShoppingList(ingredient: Ingredient) {
@@ -94,23 +93,37 @@ export class AppSettingsService {
     recipes.push(recipe);
     this.setCustomRecipes(recipes);
   }
+
   getCustomRecipes(): Recipe[] {
     let recipes = localStorage.getItem('customRecipes');
     return recipes ? JSON.parse(recipes) : [];
   }
+
   setCustomRecipes(recipes: Recipe[]) {
     localStorage.setItem('customRecipes', JSON.stringify(recipes));
   }
+
   removeCustomRecipe(recipe: Recipe) {
     var recipes = this.getCustomRecipes();
-    _.remove(recipes, i => i.uuid === recipe.uuid);
-    this.setCustomRecipes(recipes);}
-    
+    _.remove(recipes, i => i.id === recipe.id);
+    this.setCustomRecipes(recipes);
+  }
+
   updateCustomRecipe(recipe: Recipe) {
     var recipes = this.getCustomRecipes();
-    var index = _.findIndex(recipes, i => i.uuid === recipe.uuid);
+    var index = _.findIndex(recipes, i => i.id === recipe.id);
     recipes[index] = recipe;
     this.setCustomRecipes(recipes);
+  }
+
+  addOrUpdateCustomRecipe(recipe: Recipe) {
+    var recipes = this.getCustomRecipes();
+    let index = _.findIndex(recipes, i => i.id === recipe.id);
+    if(index >= 0) {
+      this.updateCustomRecipe(recipe);
+    } else {
+      this.addCustomRecipe(recipe);
+    }
   }
   // END CUSTOM RECIPES =================================================================
   // FAVORITE RECIPES ===================================================================

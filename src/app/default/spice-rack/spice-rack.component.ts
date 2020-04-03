@@ -9,7 +9,7 @@ import * as _ from 'lodash';
     templateUrl: './spice-rack.component.html'
 })
 
-export class RecipeSpiceRackComponent extends AppComponentBase implements OnInit, AfterViewInit{
+export class DefaultSpiceRackComponent extends AppComponentBase implements OnInit, AfterViewInit{
 
     query: string = '';
     spiceRack: Food[] = [];

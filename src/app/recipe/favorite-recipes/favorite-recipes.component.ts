@@ -5,10 +5,10 @@ import { HttpClient } from '@angular/common/http';
 import { Recipe } from 'src/models/recipe.model';
 
 @Component({
-    templateUrl: './fav-recipes.component.html'
+    templateUrl: './favorite-recipes.component.html'
 })
 
-export class RecipeFavRecipeComponent extends AppComponentBase implements OnInit, AfterViewInit{
+export class RecipeFavoriteRecipeComponent extends AppComponentBase implements OnInit, AfterViewInit{
 
     favoriteRecipes: Recipe[] = [];
 

@@ -3,26 +3,24 @@ import { RecipeRoutingModule } from './recipe-routing.module';
 import { RecipeComponent } from './recipe.component';
 import { RecipeFindIngredientComponent } from './find-ingredient/find-ingredient.component';
 import { RecipeFindRecipeComponent } from './find-recipe/find-recipe.component';
-import { RecipeFavRecipeComponent } from './fav-recipes/fav-recipes.component';
-import { RecipeShoppingListComponent } from './shopping-list/shopping-list.component';
 import { CommonModule } from '@angular/common';
 import { RecipeViewRecipeComponent } from './view-recipe/view-recipe.component';
 import { FormsModule } from '@angular/forms';
-import { RecipeAddRecipeComponent } from './add-recipe/add-recipe.component';
-import { RecipeViewAddedRecipeComponent } from './view-added-recipe/view-added-recipe.component';
-import { RecipeSpiceRackComponent } from './spice-rack/spice-rack.component';
+import { RecipeEditRecipeComponent } from './create-or-edit-recipe/edit-recipe.component';
+import { RecipeCustomRecipesComponent } from './custom-recipes/custom-recipes.component';
+import { RecipeCreateRecipeComponent } from './create-or-edit-recipe/create-recipe.component';
+import { RecipeFavoriteRecipeComponent } from './favorite-recipes/favorite-recipes.component';
 
 @NgModule({
     declarations: [
         RecipeComponent,
         RecipeFindIngredientComponent,
         RecipeFindRecipeComponent,
-        RecipeFavRecipeComponent,
+        RecipeFavoriteRecipeComponent,
         RecipeViewRecipeComponent,
-        RecipeShoppingListComponent,
-        RecipeAddRecipeComponent,
-        RecipeViewAddedRecipeComponent,
-        RecipeSpiceRackComponent
+        RecipeCreateRecipeComponent,
+        RecipeEditRecipeComponent,
+        RecipeCustomRecipesComponent
     ],
     imports: [
         CommonModule,

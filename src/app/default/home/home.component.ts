@@ -1,9 +1,9 @@
 import { Component, Injector, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { AppComponentBase } from '@shared/app-component-base';
 import { HttpClient } from '@angular/common/http';
-import { AppSettingsService } from '../shared/services/appsettings.service';
 import * as _ from 'lodash';
 import { Food } from 'src/models/food.model';
+import { AppSettingsService } from 'src/app/shared/services/appsettings.service';
 
 @Component({
     templateUrl: './home.component.html'

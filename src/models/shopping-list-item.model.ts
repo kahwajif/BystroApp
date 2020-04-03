@@ -7,6 +7,7 @@ export class ShoppingListItem {
     description: string;
     isSelected: boolean;
     uuid: string;
+    ingredientId: string;
 
     constructor() {
         if(!this.uuid) {
@@ -18,6 +19,7 @@ export class ShoppingListItem {
         this.quantity = `${ingredient.quantity} ${ingredient.unit}`;
         this.description = `${ingredient.food.name}`;
         this.isSelected = false;
+        this.ingredientId = ingredient.id;
         return this;
     }
 }

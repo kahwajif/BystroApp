@@ -13,9 +13,9 @@ import * as _ from 'lodash';
 
 export class RecipeViewRecipeComponent extends AppComponentBase implements OnInit, AfterViewInit {
 
-    recipe: Recipe;
-    savedRecipes: Recipe[] = [];
+    recipe: Recipe = new Recipe();
     isFavorite: boolean = false;
+    isCustomRecipe: boolean = false;
 
     constructor(
         injector: Injector,
@@ -33,10 +33,20 @@ export class RecipeViewRecipeComponent extends AppComponentBase implements OnIni
     ngOnInit() {
         this.route.paramMap.subscribe(params => {
             var id = params.get('id');
-            this._http.get(`${this._settings.getBaseUrl()}/api/recipe/${id}`)
-            .subscribe({
-                next: this.onRecipeLoaded
-            })
+
+            var customRecipes = this._settings.getCustomRecipes();
+            var recipeIndex = _.findIndex(customRecipes, r => r.id === id);
+
+            if(recipeIndex >= 0) {
+                this.recipe = customRecipes[recipeIndex];
+                this.isCustomRecipe = true;
+            } else {
+                this._http.get(`${this._settings.getBaseUrl()}/api/recipe/${id}`)
+                .subscribe({
+                    next: this.onRecipeLoaded
+                })
+            }
+
         });
     }
 

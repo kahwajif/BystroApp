@@ -13,14 +13,13 @@ export class Recipe {
     preparationTimeMinutes: number;
     servings: number;
     mainIngredient: string;
-    ingredients: Ingredient[];
-    foods: Food[]
-    instructions: string[];
-    uuid: string;
+    ingredients: Ingredient[] = [];
+    foods: Food[] = []
+    instructions: string[] = [];
 
     constructor() {
-        if(!this.uuid) {
-            this.uuid = uuidv4();
+        if(!this.id) {
+            this.id = uuidv4();
         }
     }
 }
