@@ -50,6 +50,11 @@ const recipeSchema = new Schema({
             type: Schema.Types.ObjectId,
             ref: 'Food'
         }
+    ],
+    instructions: [
+        {
+            type: String
+        }
     ]
 });
 //recipeSchema.query.ObjectId = function(foods){

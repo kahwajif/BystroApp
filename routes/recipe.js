@@ -31,7 +31,7 @@ router.get('/:id', async (req, res) => {
             .exec();
 
         const recipeDtos = new RecipeDto(r._id,r.sourceId, r.name,r.author,r.recipeUrl,r.imageUrl,r.cookTimeMinutes,
-            r.preparationTimeMinutes,r.servings,r.mainIngredient,ingredients,r.foods);
+            r.preparationTimeMinutes,r.servings,r.mainIngredient,ingredients,r.foods,r.instructions);
        
         res.json(recipeDtos);
     } catch (err) {

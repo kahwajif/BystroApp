@@ -28,15 +28,15 @@
         </tr>
     </table>
 
-    <h6 class="font-weight-bold">Ingredients (serves {{recipe.servings}})</h6>
+    <h6 class="font-weight-bold mt-2">Ingredients (serves {{recipe.servings}})</h6>
     <div *ngFor="let ingredient of recipe.ingredients">
         {{ingredient.quantity}} {{ingredient.unit}} {{ingredient.food.name}}
     </div>
 
-    <h6 class="font-weight-bold">Instructions</h6>
-    <div *ngFor="let instruction of recipe.instructions">
-        {{instruction}}
-    </div>
+    <h6 class="font-weight-bold mt-2">Instructions</h6>
+    <ul *ngFor="let instruction of recipe.instructions">
+        <li>{{instruction}}</li>
+    </ul>
 </div>
 
 <div class="row mt-3" *ngIf="recipe">

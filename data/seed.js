@@ -72,7 +72,7 @@ const getOrSeedIngredient = (sourceIngredient) => {
                 name: sourceIngredient.original,
                 unit: sourceIngredient.unit,
                 quantity: sourceIngredient.amount,
-                FoodTypeId: sourceIngredient.aisle
+                FoodTypeId: sourceIngredient.aisle,
             });
             
             var food = await getOrSeedFood(sourceIngredient);
@@ -106,8 +106,17 @@ const getOrSeedRecipe = (sourceRecipe) => {
             recipeUrl: sourceRecipe.sourceUrl,
             cookTimeMinutes: sourceRecipe.cookingMinutes,
             preparationTimeMinutes: sourceRecipe.preparationMinutes,
-            servings: sourceRecipe.servings
+            servings: sourceRecipe.servings,
+            instructions: []
         });
+
+        for(let i = 0; i < sourceRecipe.analyzedInstructions.length; i++) {
+            let instruction = sourceRecipe.analyzedInstructions[i];
+            for(let j = 0; j < instruction.steps.length; j++) {
+                let step = instruction.steps[j];
+                newRecipe.instructions.push(step.step);
+            }
+        }
 
         for(let i = 0; i < sourceRecipe.extendedIngredients.length; i++) {
             var sourceIngredient = sourceRecipe.extendedIngredients[i];
