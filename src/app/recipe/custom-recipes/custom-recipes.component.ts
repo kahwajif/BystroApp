@@ -26,4 +26,9 @@ export class RecipeCustomRecipesComponent extends AppComponentBase implements On
     ngOnInit() {
         this.recipes = this._settings.getCustomRecipes();
     }
+
+    removeCustomRecipe(recipe: Recipe): void {
+        this._settings.removeCustomRecipe(recipe);
+        this.recipes = this._settings.getCustomRecipes();
+    }
 }

@@ -1,5 +1,19 @@
  class RecipeDto {
-    constructor(id, sourceId,name,author,recipeUrl,imageUrl,cookTimeMinutes,preparationTimeMinutes,servings,mainIngredient,ingredients,foods,instructions){
+    constructor(
+      id, 
+      sourceId,
+      name,
+      author,
+      recipeUrl,
+      imageUrl,
+      cookTimeMinutes,
+      preparationTimeMinutes,
+      servings,
+      mainIngredient,
+      ingredients,
+      foods,
+      instructions
+    ){
       this.id = id;
       this.sourceId = sourceId;
       this.name = name;

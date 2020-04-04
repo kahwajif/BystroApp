@@ -68,9 +68,15 @@ export class DefaultHomeComponent extends AppComponentBase implements OnInit, Af
 
 
     onFoodsLoaded = (data: any): void => {
-        console.log(data)
         let savedFoods = this._settings.getSavedFoods();
         let savedFoodIds = savedFoods.map(food => food.id);
         this.searchResults = data.results.filter(result => !_.includes(savedFoodIds, result.id));
+    }
+
+    getGroupedFoods(): _.List<Food[]> {
+        let foods = _.orderBy(this.savedFoods, ['foodTypeId'], ['desc']);
+        let grouping =  _.groupBy(foods, f => f.foodTypeId);
+        let sortedGrouping = _.sortBy(grouping, g => foods.indexOf(g[0]));
+        return _.values(sortedGrouping);
     }
 }

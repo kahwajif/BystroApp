@@ -100,7 +100,25 @@ function paginate(model){
                 recipes[i].percentageMatch = commonFoodIds.length / recipe.foods.length;
             }
 
-            results.results = recipes;
+            let recipesDto = recipes.map(r => {
+                return new RecipeDto(
+                    r._id,
+                    r.sourceId,
+                    r.name,
+                    r.author,
+                    r.recipeUrl,
+                    r.imageUrl,
+                    r.cookTimeMinutes,
+                    r.preparationTimeMinutes,
+                    r.servings,
+                    r.mainIngredient,
+                    r.ingredients,
+                    r.foods,
+                    r.instructions
+                );
+            });
+
+            results.results = recipesDto;
             res.paginate = results;
 
             next();

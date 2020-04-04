@@ -1,24 +1,26 @@
 <h5 class="font-weight-bold mb-0 mt-2">Your Ingredients</h5>
 <h6 class="font-weight-bold mb-3 small">add more ingredients to find better recipes</h6>
 
-<div class="py-3">
-    <div *ngIf="savedFoods" class="mb-2">
-        <div class="d-flex justify-content-between align-items-center border p-2 rounded mb-2"
-            *ngFor="let food of savedFoods">
+<div *ngIf="savedFoods" class="mb-2">
+    <div *ngFor="let groupedFoods of getGroupedFoods()" class="mb-3">
+        <h6 class="font-weight-bold">
+            <spice-image [foodTypeId]="groupedFoods[0].foodTypeId"></spice-image>
+            <spice-text [foodTypeId]="groupedFoods[0].foodTypeId"></spice-text>
+        </h6>
+        <div class="d-flex justify-content-between align-items-center border p-2 rounded mb-2 bg-white shadow-sm"
+            *ngFor="let food of groupedFoods">
             <span>
                 <strong>{{food.name}}</strong>
-                <!-- <small class="text-secondary">{{food.dateAdded | date:'short'}}</small> -->
             </span>
             <span class="align-middle text-danger" (click)="removeFood(food)">
                 <i class="fad fa-times fa-fw"></i>
             </span>
         </div>
     </div>
+</div>
 
-    <div *ngIf="savedFoods.length">
-        <a class="btn btn-primary d-block" routerLink="/recipes/find-recipe">Find Recipes</a>
-    </div>
-    <a class="btn btn-primary d-block mt-3" routerLink="/recipes/custom-recipes">Custom Recipes</a>
+<div *ngIf="savedFoods.length" class="shadow-sm">
+    <a class="btn btn-primary d-block" routerLink="/recipes/find-recipe">Find Recipes</a>
 </div>
 
 <!-- Add Ingredient Form -->
@@ -43,8 +45,9 @@
 
                 <div *ngIf="searchResults" class="mb-2 overflow-auto" [style.max-height.vh]="50"
                     [style.overflow]="scroll">
-                    <a class="d-flex justify-content-between border p-2 rounded mb-2" type="button" data-toggle="modal" data-target="#add-ingredient-form"
+                    <a class="d-block border p-2 rounded mb-2" type="button" data-toggle="modal" data-target="#add-ingredient-form"
                         *ngFor="let food of searchResults" (click)="saveFood(food)">
+                        <spice-image [foodTypeId]="food.foodTypeId"></spice-image>
                         {{food.name}}
                     </a>
 

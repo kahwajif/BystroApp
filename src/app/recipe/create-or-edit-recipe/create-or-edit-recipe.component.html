@@ -114,7 +114,7 @@
 </div>
 <div class="form-row" *ngIf="editInstructionIndex < 0">
     <div class="col-10">
-        <input type="text" placeholder="sugar" class="form-control form-control-sm" [(ngModel)]="newInstruction"/>
+        <input type="text" placeholder="dissolve 3 tbsp of sugar in warm water" class="form-control form-control-sm" [(ngModel)]="newInstruction"/>
     </div>
     <div class="col text-right">
         <button class="btn btn-primary btn-sm" (click)="addInstruction()">
@@ -124,5 +124,5 @@
 </div>
 
 
-<a class="btn btn-primary d-block mt-2" (click)="saveRecipe()">Save</a>
-<a class="btn btn-primary d-block mb-5 mt-2" routerLink="/recipes/view-added-recipe">Back</a>
+<button class="btn btn-primary d-block btn-block mt-2" (click)="saveRecipe()">Save</button>
+<a class="btn btn-secondary d-block mb-5 mt-2" routerLink="/recipes/view-added-recipe">Back</a>

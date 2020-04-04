@@ -1,10 +1,12 @@
 <h5 class="font-weight-bold mb-0 mt-2">Recipes</h5>
 <h6 class="font-weight-bold mb-3 small">based on your ingredients</h6>
 
-
-<a [routerLink]="['/recipes/find-recipe', recipe._id]" class="d-block border text-sm p-2 text-dark mb-2" *ngFor="let recipe of recipes">
-    <strong>{{recipe.name}}</strong><br />
-    <span>{{recipe._id}}</span>
-</a>
+<div class="rounded p-2 mb-5">
+    <div class="row">
+        <div class="col-md-6 col-lg-4 mb-3" *ngFor="let recipe of recipes">
+            <recipe-card [recipe]="recipe" [showRemoveButton]="false" (removeButtonClicked)="removeFavoriteRecipe(recipe)"></recipe-card>
+        </div>
+    </div>
+</div>
 
 <a class="btn btn-primary d-block mb-5" routerLink="/">Back to Ingredients</a>

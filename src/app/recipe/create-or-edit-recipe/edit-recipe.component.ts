@@ -7,6 +7,7 @@ import { Ingredient } from 'src/models/ingredient.model';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Food } from 'src/models/food.model';
 import * as _ from 'lodash';
+import { v4 as uuidv4 } from 'uuid';
 
 @Component({
     templateUrl: './create-or-edit-recipe.component.html'
@@ -35,8 +36,6 @@ export class RecipeEditRecipeComponent extends AppComponentBase implements OnIni
             this.recipe.name = 'My Custom Recipe';
         }
         this.recipe.author = 'you';
-
-        console.log(this.recipe)
     }
 
     ngAfterViewInit(): void {}
@@ -54,6 +53,7 @@ export class RecipeEditRecipeComponent extends AppComponentBase implements OnIni
                 this._http.get(`${this._settings.getBaseUrl()}/api/recipe/${id}`)
                 .subscribe((response: Recipe) => {
                     this.recipe = response;
+                    this.recipe.id = uuidv4();
                     this.recipe.name = `[Copy] ${this.recipe.name}`;
                     this.recipe.author = 'you';
                 })

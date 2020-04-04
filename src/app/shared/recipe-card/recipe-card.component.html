@@ -1,0 +1,22 @@
+<a [routerLink]="['/recipes/find-recipe', recipe.id]" class="card h-100 mb-3 shadow-sm text-dark text-decoration-none">
+    <div class="row no-gutters mb-2">
+        <div class="col-12" [style.position]="relative">
+            <img *ngIf="recipe.imageUrl" [src]="recipe.imageUrl" class="card-img" alt="...">
+            <button *ngIf="showRemoveButton" type="button" class="close text-danger p-2 position-absolute" 
+                [style.top]="0"
+                [style.right]="0"
+                (click)="removeRecipe($event, recipe)"
+            >
+                <span aria-hidden="true"><i class="fad fa-times"></i></span>
+            </button>
+        </div>
+        <div class="col-12">
+            <div class="card-body">
+                <h5 class="card-title font-weight-bold">{{recipe.name}}</h5>
+                <span>Preparation Time: {{recipe.preparationTimeMinutes}} min</span><br />
+                <span>Cook Time: {{recipe.cookTimeMinutes}} min</span><br />
+                <span>Servings: {{recipe.servings}}</span>
+            </div>
+        </div>
+    </div>
+</a>

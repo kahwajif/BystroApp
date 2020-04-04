@@ -1,14 +1,18 @@
 <h5 class="font-weight-bold mt-2">Favourite Recipes</h5>
 
-    <a  class="d-flex justify-content-between border p-2 rounded mb-2" *ngFor="let recipe of favoriteRecipes">
-        <span>
-            <strong [routerLink]="['/recipes/find-recipe', recipe.id]">{{recipe.name}}</strong><br />
-        </span>
+<div *ngIf="!favoriteRecipes.length" class="bg-white rounded p-2 shadow-sm">
+    <p class="lead text-secondary">
+        Nothing here yet. Search for recipes and add them to your favorites.
+    </p>
+</div>
 
+<div class="rounded p-2 mb-5">
+    <div class="row">
+        <div class="col-md-6 col-lg-4 mb-3" *ngFor="let recipe of favoriteRecipes">
+            <recipe-card [recipe]="recipe" [showRemoveButton]="true" (removeButtonClicked)="removeFavoriteRecipe(recipe)"></recipe-card>
+        </div>
+    </div>
+</div>
 
-        <span class="align-middle text-danger" (click)="removeFavoriteRecipe(recipe)">
-            <i class="fal fa-times"></i>
-        </span>
-    </a>
 
 

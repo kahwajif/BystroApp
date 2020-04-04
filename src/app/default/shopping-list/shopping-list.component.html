@@ -2,6 +2,12 @@
 
 <div class="bg-white rounded shadow-sm p-2 mb-5">
 
+    <div *ngIf="!shoppingListItems.length">
+        <p class="lead text-secondary">
+            Nothing here yet. Add a new item or find a recipe and add the ingredients to the list.
+        </p>
+    </div>
+
     <div class="">
         <div class="d-flex justify-content-between align-items-center p-1 rounded my-1 border-bottom"
             *ngFor="let item of shoppingListItems" (click)="toggleItemIsSelected(item)">

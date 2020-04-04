@@ -41,7 +41,6 @@ export class RecipeFindRecipeComponent extends AppComponentBase implements OnIni
     }
 
     onRecipesLoaded = (res) => {
-        console.log(res)
         this.recipes = res.results;
     }
 }

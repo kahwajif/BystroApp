@@ -33,8 +33,6 @@ export class RecipeCreateRecipeComponent extends AppComponentBase implements OnI
             this.recipe.name = 'My Custom Recipe';
         }
         this.recipe.author = 'you';
-
-        console.log(this.recipe)
     }
 
     ngAfterViewInit(): void {}
