@@ -12,7 +12,8 @@
       mainIngredient,
       ingredients,
       foods,
-      instructions
+      instructions,
+      percentageMatch
     ){
       this.id = id;
       this.sourceId = sourceId;
@@ -27,6 +28,7 @@
       this.ingredients = ingredients;
       this.foods = foods;
       this.instructions = instructions;
+      this.percentageMatch = percentageMatch;
     }
 }
 

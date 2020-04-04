@@ -8,7 +8,7 @@ const Ingredient = require('../models/ingredient');
 const Recipe = require('../models/recipe');
 const Food = require('../models/food');
 
-const FILE_LIMIT = 10;
+const FILE_LIMIT = 150;
 
 let ingredientCache = [];
 let recipeCache = [];

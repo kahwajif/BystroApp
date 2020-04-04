@@ -114,7 +114,8 @@ function paginate(model){
                     r.mainIngredient,
                     r.ingredients,
                     r.foods,
-                    r.instructions
+                    r.instructions,
+                    r.percentageMatch
                 );
             });
 

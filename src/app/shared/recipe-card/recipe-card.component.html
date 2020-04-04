@@ -13,6 +13,7 @@
         <div class="col-12">
             <div class="card-body">
                 <h5 class="card-title font-weight-bold">{{recipe.name}}</h5>
+                <span>{{getNumberOfMatchingItems()}}/{{recipe.foods.length}} matching ingredients</span><br />
                 <span>Preparation Time: {{recipe.preparationTimeMinutes}} min</span><br />
                 <span>Cook Time: {{recipe.cookTimeMinutes}} min</span><br />
                 <span>Servings: {{recipe.servings}}</span>
