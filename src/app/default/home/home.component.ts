@@ -6,7 +6,8 @@ import { Food } from 'src/models/food.model';
 import { AppSettingsService } from 'src/app/shared/services/appsettings.service';
 
 @Component({
-    templateUrl: './home.component.html'
+    templateUrl: './home.component.html',
+    styleUrls: ['./home.component.less']
 })
 
 export class DefaultHomeComponent extends AppComponentBase implements OnInit, AfterViewInit {

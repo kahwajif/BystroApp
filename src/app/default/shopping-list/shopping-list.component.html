@@ -52,8 +52,7 @@
                         <input class="form-control" [(ngModel)]="description" (ngModelChange)="searchFood()">
                     </div>
 
-                    <div *ngIf="searchResults" class="mb-2 overflow-auto" [style.max-height.vh]="50"
-                        [style.overflow]="scroll">
+                    <div *ngIf="searchResults" class="mb-2 overflow-auto overflow-scroll max-height-50">
                         <div class="d-flex justify-content-between border p-2 rounded mb-2"
                             *ngFor="let food of searchResults" (click)="setDescription(food)">
                             <div class="align-middle justify-content-center">

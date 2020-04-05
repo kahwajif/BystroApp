@@ -7,6 +7,7 @@ import * as _ from 'lodash';
 @Component({
     templateUrl: './recipe-card.component.html',
     selector: 'recipe-card',
+    styleUrls: ['./recipe-card.component.less'],
     encapsulation: ViewEncapsulation.None
 })
 

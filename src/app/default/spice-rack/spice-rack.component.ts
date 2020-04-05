@@ -6,7 +6,8 @@ import { Food } from 'src/models/food.model';
 import * as _ from 'lodash';
 
 @Component({
-    templateUrl: './spice-rack.component.html'
+    templateUrl: './spice-rack.component.html',
+    styleUrls: ['./spice-rack.component.less']
 })
 
 export class DefaultSpiceRackComponent extends AppComponentBase implements OnInit, AfterViewInit{

@@ -43,8 +43,7 @@
                     </div>
                 </div>
 
-                <div *ngIf="searchResults" class="mb-2 overflow-auto" [style.max-height.vh]="50"
-                    [style.overflow]="scroll">
+                <div *ngIf="searchResults" class="mb-2 overflow-auto overflow-scroll max-height-50">
                     <a class="d-block border p-2 rounded mb-2" type="button" data-toggle="modal" data-target="#add-ingredient-form"
                         *ngFor="let food of searchResults" (click)="saveFood(food)">
                         <spice-image [foodTypeId]="food.foodTypeId"></spice-image>

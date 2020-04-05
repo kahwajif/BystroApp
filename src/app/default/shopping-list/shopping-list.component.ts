@@ -8,7 +8,8 @@ import { Food } from 'src/models/food.model';
 import { $ } from 'protractor';
 
 @Component({
-    templateUrl: './shopping-list.component.html'
+    templateUrl: './shopping-list.component.html',
+    styleUrls: ['./shopping-list.component.less']
 })
 
 export class DefaultShoppingListComponent extends AppComponentBase implements OnInit, AfterViewInit{

@@ -1,10 +1,8 @@
 <a [routerLink]="['/recipes/find-recipe', recipe.id]" class="card h-100 mb-3 shadow-sm text-dark text-decoration-none">
     <div class="row no-gutters mb-2">
-        <div class="col-12" [style.position]="relative">
+        <div class="col-12 position-relative">
             <img *ngIf="recipe.imageUrl" [src]="recipe.imageUrl" class="card-img" alt="...">
-            <button *ngIf="showRemoveButton" type="button" class="close text-danger p-2 position-absolute" 
-                [style.top]="0"
-                [style.right]="0"
+            <button *ngIf="showRemoveButton" type="button" class="close text-danger p-2 position-absolute position-top-right" 
                 (click)="removeRecipe($event, recipe)"
             >
                 <span aria-hidden="true"><i class="fad fa-times"></i></span>
