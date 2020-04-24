@@ -5,10 +5,10 @@
 <div class="rounded p-2 mb-5">
     <div *ngIf="!recipes.length">
         <p class="lead text-secondary">
-            Nothing here yet. Search for recipes and add them to your favorites.
+            Nothing here yet. Create or customize a recipe to add to this list.
         </p>
     </div>
-
+<!-- Cannot delete custom recipes. Check recipe card. Maybe UUID issue -->
     <div class="row">
         <div class="col-md-6 col-lg-4 mb-3" *ngFor="let recipe of recipes">
             <recipe-card [recipe]="recipe" [showRemoveButton]="true" (removeButtonClicked)="removeCustomRecipe(recipe)"></recipe-card>
