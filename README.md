@@ -1,6 +1,6 @@
 # Bystroapp
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.23. I do not ownt he data used in this project. Data belongs to https://spoonacular.com/food-api
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.23. I do not own the data used in this project. Data belongs to https://spoonacular.com/food-api
 
 ## Getting Started
 1. Install the [git source control manager](https://git-scm.com/)
