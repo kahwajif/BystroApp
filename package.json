@@ -27,7 +27,7 @@
     "config": "^3.2.5",
     "cookie-parser": "^1.4.4",
     "express": "^4.17.1",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "lodash": "^4.17.15",
     "mongoose": "^5.8.10",
     "rxjs": "~6.4.0",
