@@ -5,7 +5,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 ## Getting Started
 1. Install the [git source control manager](https://git-scm.com/)
 1. Install the LTS version of [NodeJS runtime](https://nodejs.org/en/) if not installed locally yet
-1. Use your terminal (Bash, CMD) to navigate to your projects directory and clone the project with the command `git clone https://github.com/jacildo/bystro.git`
+1. Use your terminal (Bash, CMD) to navigate to your projects directory and clone the project with the command `git clone https://github.com/kahwajif/BystroApp.git`
 1. Run the following commands sequentially to launch the site
     ```
     $ npm install -g @angular/cli
