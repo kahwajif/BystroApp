@@ -26,3 +26,8 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 ## Recipe Search Demo
 
 ![](bystroGif.gif)
+
+## Next Steps
+1. Improve recipe matching feature
+2. Offer links to purchase ingredients by becoming an Amazon Associate, Walmart Affiliate, etc.
+3. Include sorting methods such as sorting by serving size.
